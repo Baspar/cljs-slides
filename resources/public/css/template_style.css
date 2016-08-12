@@ -1,0 +1,39 @@
+/* template CSS */
+.previous-leave {
+    opacity: 1;
+    transform: translateX(0%) rotateY(0deg);
+}
+.previous-leave.previous-leave-active {
+    opacity: 0;
+    transform: translateX(200%) rotateY(90deg);
+    transition: all 500ms ease-in;
+}
+.previous-enter {
+    opacity: 0;
+    transform: translateX(-200%) rotateY(-90deg);
+}
+.previous-enter.previous-enter-active {
+    opacity: 1;
+    transform: translateX(0%) rotateY(0deg);
+    transition: all 500ms ease-out;
+}
+
+
+.next-enter {
+    opacity: 0;
+    transform: translateX(200%) rotateY(90deg);
+}
+.next-enter.next-enter-active {
+    opacity: 1;
+    transform: translateX(0%) rotateY(0deg);
+    transition: all 500ms ease-out;
+}
+.next-leave {
+    opacity: 1;
+    transform: translateX(0%) rotateY(0deg);
+}
+.next-leave.next-leave-active {
+    opacity: 0;
+    transform: translateX(-200%) rotateY(-90deg);
+    transition: all 500ms ease-in;
+}
