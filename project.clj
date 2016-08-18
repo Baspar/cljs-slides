@@ -8,12 +8,11 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51"]
-                 [devcards "0.2.1-7" :exclusions [cljsjs/react-with-addons cljsjs/react cljsjs/react-dom]]
-                 [sablono "0.7.1"]
+                 [devcards "0.2.1-7" :exclusions [cljsjs/react]]
+                 [sablono "0.7.1" :exclusions [cljsjs/react]]
 
-                 [cljsjs/react "15.3.0-0"]
-                 [cljsjs/react-with-addons "15.3.0-0" :exclusions [[cljsjs/react]]]
-                 [cljsjs/react-dom "15.3.0-0" :exclusions [[cljsjs/react]]]]
+                 [cljsjs/react-with-addons "15.3.0-0"]
+                 [cljsjs/react-dom "15.3.0-0" :exclusions [cljsjs/react]]]
 
   :plugins [[lein-figwheel "0.5.3-2"]
             [lein-cljsbuild "1.1.3" :exclusions [org.clojure/clojure]]]
