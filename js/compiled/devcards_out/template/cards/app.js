@@ -8,4 +8,4 @@ return template.ui.app.call(null,state);
 }),new cljs.core.Keyword(null,"initial-data","initial-data",-1315709804),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"options","options",99638489),new cljs.core.PersistentArrayMap(null, 8, [new cljs.core.Keyword(null,"frame","frame",-1711082588),true,new cljs.core.Keyword(null,"heading","heading",-1312171873),true,new cljs.core.Keyword(null,"padding","padding",1660304693),true,new cljs.core.Keyword(null,"hidden","hidden",-312506092),false,new cljs.core.Keyword(null,"inspect-data","inspect-data",640452006),true,new cljs.core.Keyword(null,"watch-atom","watch-atom",-2134031308),true,new cljs.core.Keyword(null,"history","history",-247395220),true,new cljs.core.Keyword(null,"classname","classname",777390796),"app"], null)], null));
 })], null));
 
-//# sourceMappingURL=app.js.map?rel=1470994236930
+//# sourceMappingURL=app.js.map?rel=1471706583338

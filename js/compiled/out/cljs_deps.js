@@ -1,6 +1,7 @@
 goog.addDependency("base.js", ['goog'], []);
 goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.string.StringBuffer', 'goog.array']);
 goog.addDependency("../template/state.js", ['template.state'], ['cljs.core']);
+goog.addDependency("../template/util.js", ['template.util'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/protocols.js", ['cljs.core.async.impl.protocols'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.buffers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/dispatch.js", ['cljs.core.async.impl.dispatch'], ['cljs.core', 'cljs.core.async.impl.buffers', 'goog.async.nextTick']);
@@ -17,9 +18,11 @@ goog.addDependency("../sablono/normalize.js", ['sablono.normalize'], ['sablono.u
 goog.addDependency("../sablono/interpreter.js", ['sablono.interpreter'], ['sablono.util', 'cljs.core', 'goog.object', 'cljsjs.react', 'sablono.normalize', 'clojure.string']);
 goog.addDependency("../sablono/core.js", ['sablono.core'], ['goog.dom', 'sablono.util', 'goog.string', 'cljs.core', 'cljsjs.react', 'cljsjs.react.dom', 'sablono.interpreter', 'sablono.normalize', 'clojure.string']);
 goog.addDependency("../template/dispatch.js", ['template.dispatch'], ['cljs.core', 'cljs.core.async', 'sablono.core', 'clojure.string']);
-goog.addDependency("../template/ui.js", ['template.ui'], ['cljs.core', 'template.dispatch']);
+goog.addDependency("../template/ui_elements.js", ['template.ui_elements'], ['cljs.core']);
+goog.addDependency("../template/pages.js", ['template.pages'], ['template.util', 'cljs.core', 'template.ui_elements']);
+goog.addDependency("../template/ui.js", ['template.ui'], ['template.util', 'cljs.core', 'template.dispatch', 'template.pages']);
 goog.addDependency("../template/cards/app.js", ['template.cards.app'], ['template.ui', 'cljs.core']);
-goog.addDependency("../template/core.js", ['template.core'], ['template.state', 'template.ui', 'cljs.core', 'cljs.core.async', 'template.dispatch', 'sablono.core', 'clojure.string', 'template.cards.app']);
+goog.addDependency("../template/core.js", ['template.core'], ['template.state', 'template.ui', 'template.util', 'cljs.core', 'cljs.core.async', 'sablono.core', 'template.cards.app']);
 goog.addDependency("../figwheel/client/utils.js", ['figwheel.client.utils'], ['goog.userAgent.product', 'cljs.core', 'clojure.string']);
 goog.addDependency("../figwheel/client/file_reloading.js", ['figwheel.client.file_reloading'], ['goog.string', 'goog.net.jsloader', 'goog.Uri', 'cljs.core', 'goog.object', 'cljs.core.async', 'clojure.set', 'figwheel.client.utils', 'clojure.string']);
 goog.addDependency("../cljs/repl.js", ['cljs.repl'], ['cljs.core']);
