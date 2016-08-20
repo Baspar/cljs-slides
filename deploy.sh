@@ -14,7 +14,7 @@ git checkout "$wanted_branch" && {
     git pull
     rm -rf ../google
     mkdir ../google
-    lein cljsbuild once "dev"
+    lein cljsbuild once "prod"
     cp -r resources/public/* ../google
     git checkout gh-pages && {
         git pull
