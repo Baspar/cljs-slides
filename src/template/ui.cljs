@@ -25,7 +25,8 @@
                          :width "100%"}}
            (pages/render-page state page)]]))
   ([state]
-   (html [:div {:key ((util/get-slide state) :id)
+   (render-page state (get @state :slide-shown [0 0]))
+   #_(html [:div {:key ((util/get-slide state) :id)
                 :style {:height "100%"
                         :width "100%"
                         :position "absolute"
@@ -100,7 +101,7 @@
                                opacity .3s"
                   :justify-content "center"
                   :align-items "center"}}
-    [:div
+    [:div {:style {:transform "translateX(10vw)"}}
      (map-indexed (fn [i1 x]
                     [:div {:style {:padding "5px"
                                    :font-size "24px"}}
@@ -114,24 +115,21 @@
                                                     :style {:text-align "center"
                                                             :margin-left "40px"
                                                             :padding "5px"
-                                                            :margin-top "5p"
+                                                            :margin-top "5px"
                                                             :font-size "16px"
                                                             :opacity (if (= [i1 i2] (@state :highlight)) 1 0.5)
                                                             :cursor "pointer"
                                                             :background-color "grey"
-                                                            :border-radius "15px"}}
+                                                            }}
                                               (:title y)])
                                   (:slides x))])
                   (@state :groups))]
-    [:div {:style {:height "50vh"
-                   :width "50vw"
-                   :transform "scale(.5)"
+    [:div {:style {:height "100vh"
+                   :width "100vw"
+                   :transform "scale(.4)"
                    :background-color "white"
-                   ;:box-shadow "0px 0px 2px white"
                    :border "solid white 15px"
-                   :opacity (if (@state :highlight) 1 0)
-                   ;:transition "opacity 0.3s"
-                   }}
+                   :opacity (if (@state :highlight) 1 0)}}
      (when-let [page (@state :highlight)]
        (render-page state page))]]])
 (defn page [state]

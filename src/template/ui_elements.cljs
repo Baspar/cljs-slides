@@ -9,7 +9,8 @@
    [:div {:style {:flex-grow 1
                   :display "flex"
                   :flex-direction "column"
-                  :padding "10px"
+                  :padding "20px"
+                  :box-shadow "0 4px 2px -3px"
                   :background-color "#fcd123"}}
     objs]])
 (defn block [title objs]
@@ -21,10 +22,23 @@
    [:div {:style {:flex-grow 1
                   :display "flex"
                   :flex-direction "column"
-                  :padding "10px"
+                  :padding "20px"
                   :box-shadow "0 4px 2px -3px"
                   :background-color "#02a89e"}}
     objs]])
+(defn rows [objs]
+  [:div {:style {:flex-grow 1
+                 :display "flex"
+                 :flex-direction "column"
+                 :justify-content "space-around"
+                 :align-items "stretch"}}
+  (map
+    (fn [x] [:div {:style {:display "flex"
+                           :flex-direction "column"
+                           :flex-grow 1
+                           :margin "20px 0px"}}
+             x])
+    objs)])
 (defn cols [objs]
   [:div {:style {:flex-grow 1
                  :display "flex"

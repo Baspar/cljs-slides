@@ -39,9 +39,12 @@
                              "List of todo"
                              [:ul
                               [:li "todo1"]
-                              [:li "todo2"]
-                              ]
-                             ])
+                              [:li "todo2"]]]))
+(defmethod render-page :part2 [state]
+  (ui/rows
+    [(ui/cols [(ui/block "1" ["1"]) (ui/block "2" ["2"])])
+     (ui/cols [(ui/block "3" ["3"]) (ui/block "4" ["4"])])]
+    )
   )
 (defmethod render-page :default [state]
   (let [slide (:id (util/get-slide state))]
