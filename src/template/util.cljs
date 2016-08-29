@@ -1,4 +1,6 @@
-(ns template.util)
+(ns template.util
+  (:require
+    [template.pages :refer [groups]]))
 
 ;; Get info about group/slide
 (defn get-group
@@ -6,13 +8,13 @@
    (let [slide (get @state :slide-shown [0 0])]
      (get-group state slide)))
   ([state slide]
-   (get-in @state [:groups (first slide)])))
+   (get-in groups [:groups (first slide)])))
 (defn get-slide
   ([state]
    (let [slide (get @state :slide-shown [0 0])]
      (get-slide state slide)))
   ([state slide]
-   (get-in @state [:groups (first slide) :slides (last slide)])))
+   (get-in groups [:groups (first slide) :slides (last slide)])))
 
 ;; Get id about next/previous slide
 (defn whos-previous
@@ -23,7 +25,7 @@
          this-slide (last slide)
          prev-group (- this-group 1)
          prev-slide (- this-slide 1)
-         nb-prev-group (count (get-in @state [:groups prev-group :slides]))]
+         nb-prev-group (count (get-in groups [:groups prev-group :slides]))]
    (if (get-slide state [this-group prev-slide])
      [this-group prev-slide]
      (if (get-slide state [prev-group (- nb-prev-group 1)])

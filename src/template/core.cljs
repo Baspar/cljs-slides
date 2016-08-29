@@ -18,11 +18,11 @@
 (defn main []
   "Conditionally start the app based on whether the #main-app-area
   node is on the page."
-  (if-let [node (.getElementById js/document "main-app-area")]
-    (do (add-watch state/app-state :render
-               (render-app node))
-        (println state/app-state)
-        (.render js/ReactDOM (ui/page state/app-state) node))))
+  (when-let [node (.getElementById js/document "main-app-area")]
+    (do
+      (add-watch state/app-state :render
+                 (render-app node))
+      (.render js/ReactDOM (ui/page state/app-state) node))))
 
 (main)
 (set! (.-onkeydown js/document)
