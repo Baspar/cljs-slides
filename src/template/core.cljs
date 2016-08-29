@@ -1,11 +1,8 @@
 (ns template.core
   (:require
-   [sablono.core :as sab :include-macros true]
    [template.ui :as ui]
    [template.util :as util]
-   [template.state :as state]
-   [template.cards.app :as app]
-   [cljs.core.async :refer [chan put! <!]]))
+   [template.state :as state]))
 
 (enable-console-print!)
 

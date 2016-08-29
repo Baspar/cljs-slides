@@ -3,7 +3,6 @@
     [template.pages :refer [groups]]
     [template.util :as util])
   (:require-macros
-   [devcards.core :as dc :refer [defcard deftest]]
    [sablono.core :as sab :refer [html]]))
 
 (defn render-page
