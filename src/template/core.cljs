@@ -1,8 +1,9 @@
 (ns template.core
   (:require
-   [template.ui :as ui]
-   [template.util :as util]
-   [template.state :as state]))
+    [sablono.core]
+    [template.ui :as ui]
+    [template.util :as util]
+    [template.state :as state]))
 
 (enable-console-print!)
 
