@@ -3,40 +3,26 @@
     [cljs-slides.core :refer [defslide]]))
 
 (defslide introduction
-  [:cols [[:block "Block" []]
-            [:block "Block" []]
-            [:question-block "Block" []]]])
+  [:cols
+   [:block "Block" "test"]
+   [:block "Block" "test"]
+   [:question-block "Block" "test"]])
 (defslide welcome
-  [:block "Titre"
-   (:cols
-     [(:question-block "Subtitle1"
-                       [:div "HELLO"])
-      (:question-block "Subtitle2"
-                       [:div "HELLO"])
-      (:question-block "Subtitle3"
-                       [:div "HELLO"])
-      (:question-block "Subtitle4"
-                       [[:div "HELLO"]
-                        [:div "HELLO"]
-                        [:ul
-                         [:li "test1"]
-                         [:li "test2"]]
-                        (:block "end"
-                                [[:div "fini"]])])])])
+  [:rows [:cols [:h1 "Welcome"]]])
 (defslide part1
-  [:block "Part1 content" [[:h1 "Reminder!"]
-                           "List of todo"
-                           [:ul
-                            [:li "todo1"]
-                            [:li "todo2"]]]])
+  [:block "Part1 content"
+   [:h1 "Reminder!"]
+   "List of todo"
+   [:ul
+    [:li "todo1"]
+    [:li "todo2"]]])
 (defslide part2
-  [:rows
-   [:cols
-    [:block "1" ["1"]]
-    [:block "2" ["2"]]]
-   [:cols
-    [:block "3" ["3"]]
-    [:block "4" ["4"]]]])
+  [:block "Part1 content"
+   [:h1 "Reminder!"]
+   "List of todo"
+   [:ul
+    [:li "todo1"]
+    [:li "todo2"]]])
 (defslide default
   [:div "Please provide a template for this slide in the file pages.cljs" ])
 
