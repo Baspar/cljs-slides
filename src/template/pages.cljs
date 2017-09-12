@@ -1,39 +1,43 @@
 (ns template.pages
-  (:require
-    [template.ui_elements :as ui]))
+  (:require-macros
+    [cljs-slides.core :refer [defslide]]))
 
-(def introduction
-  (ui/cols [(ui/block "Block" [])
-            (ui/block "Block" [])
-            (ui/question-block "Block" [])]))
-(def welcome
-  (ui/block "Titre"
-            (ui/cols
-              [(ui/question-block "Subtitle1"
-                                  [:div "HELLO"])
-               (ui/question-block "Subtitle2"
-                                  [:div "HELLO"])
-               (ui/question-block "Subtitle3"
-                                  [:div "HELLO"])
-               (ui/question-block "Subtitle4"
-                                  [[:div "HELLO"]
-                                   [:div "HELLO"]
-                                   [:ul
-                                    [:li "test1"]
-                                    [:li "test2"]]
-                                   (ui/block "end"
-                                             [[:div "fini"]])])])))
-(def part1
-  (ui/block "Part1 content" [[:h1 "Reminder!"]
-                             "List of todo"
-                             [:ul
-                              [:li "todo1"]
-                              [:li "todo2"]]]))
-(def part2
-  (ui/rows
-    [(ui/cols [(ui/block "1" ["1"]) (ui/block "2" ["2"])])
-     (ui/cols [(ui/block "3" ["3"]) (ui/block "4" ["4"])])]))
-(def default
+(defslide introduction
+  [:cols [[:block "Block" []]
+            [:block "Block" []]
+            [:question-block "Block" []]]])
+(defslide welcome
+  [:block "Titre"
+   (:cols
+     [(:question-block "Subtitle1"
+                       [:div "HELLO"])
+      (:question-block "Subtitle2"
+                       [:div "HELLO"])
+      (:question-block "Subtitle3"
+                       [:div "HELLO"])
+      (:question-block "Subtitle4"
+                       [[:div "HELLO"]
+                        [:div "HELLO"]
+                        [:ul
+                         [:li "test1"]
+                         [:li "test2"]]
+                        (:block "end"
+                                [[:div "fini"]])])])])
+(defslide part1
+  [:block "Part1 content" [[:h1 "Reminder!"]
+                           "List of todo"
+                           [:ul
+                            [:li "todo1"]
+                            [:li "todo2"]]]])
+(defslide part2
+  [:rows
+   [:cols
+    [:block "1" ["1"]]
+    [:block "2" ["2"]]]
+   [:cols
+    [:block "3" ["3"]]
+    [:block "4" ["4"]]]])
+(defslide default
   [:div "Please provide a template for this slide in the file pages.cljs" ])
 
 
