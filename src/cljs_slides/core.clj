@@ -1,6 +1,7 @@
 (ns cljs-slides.core
   (:require [clojure.walk :refer [postwalk]]))
 
+;; UI Elements
 (defn question-block [title & objs]
   [:div
    [:div {:style {:background-color  "#fcbe13"
@@ -55,6 +56,7 @@
              x])
     objs)])
 
+;; Helpers
 (defn count-pauses [node]
   (->> node
        (map #(cond
@@ -63,20 +65,39 @@
                (= % '<->) 1
                :else 0))
        (reduce + 0)))
+(defn component? [x]
+  (and (vector? x)
+       (< 0 (count x))
+       (keyword? (first x))))
 
+;; Slides modifiers
+(defn assign-value-pause
+  ([node]
+   (last (assign-value-pause 1 node)))
+  ([pause node]
+   (cond
+     (vector? node) (reduce (fn [[old-pause buf] element]
+                              (let [[new-pause new-element] (assign-value-pause old-pause element)]
+                                [new-pause (vec (concat buf [new-element]))]))
+                            [pause []]
+                            node)
+     (= '<-> node) [(inc pause) (str "<" pause "->")]
+     :else [pause node])))
+
+;; Main Macro
 (defmacro defslide
   [slide-name slide-raw]
   (let [nb-pause (count-pauses slide-raw)
         slide (->> slide-raw
+                   (assign-value-pause)
                    (postwalk #(when (not= '<-> %) %))
-                   (postwalk #(if (or (list? %) (vector? %))
+                   (postwalk #(if (component? %)
                                 (filterv some? %)
                                 %))
-                   (postwalk #(let [component? (and (vector? %) (< 0 (count %)))
-                                    rows? (and component? (= (first %) :rows))
-                                    cols? (and component? (= (first %) :cols))
-                                    block? (and component? (re-matches #"block<(.*)>" (name (first %))))
-                                    question? (and component? (re-matches #"question<(.*)>" (name (first %))))]
+                   (postwalk #(let [rows? (and (component? %) (= (first %) :rows))
+                                    cols? (and (component? %) (= (first %) :cols))
+                                    block? (and (component? %) (re-matches #"block<(.*)>" (name (first %))))
+                                    question? (and (component? %) (re-matches #"question<(.*)>" (name (first %))))]
                                 (cond
                                   rows? (apply rows (rest %))
                                   cols? (apply cols (rest %))

@@ -4,13 +4,20 @@
 
 (defslide introduction
   [:cols
+   <-> ;; 1
+   [:block<Block>
+    <-> ;; 2
+    "test"]
+   <-> ;; 3
    [:block<Block> "test"]
-   [:block<Block> "test"]
+   <-> ;; 4
    [:question<Block> "test"]])
+
 (defslide welcome
   [:rows
    [:cols
     [:h1 "Welcome"]]])
+
 (defslide part1
   [:block<Part1_content>
    [:h1 "Reminder!"]
@@ -21,6 +28,7 @@
    [:ul
     [:li "todo1"]
     [:li "todo2"]]])
+
 (defslide part2
   [:block<Part1_content>
    [:h1 "Reminder!"]
@@ -28,9 +36,6 @@
    [:ul
     [:li "todo1"]
     [:li "todo2"]]])
-(defslide default
-  [:div "Please provide a template for this slide in the file pages.cljs" ])
-
 
 (def groups {:groups [{:title "Introduction"
                        :slides [{:id :welcome
@@ -45,11 +50,6 @@
                                  :title "Part 1"}
                                 {:id :part2
                                  :format part2
-                                 :title "Part 2"}]}
-                      {:title "Conclusion"
-                       :slides [{:id :conclusion
-                                 :format default
-                                 :title "Conclusion"}
-                                {:id :question?
-                                 :format default
-                                 :title "Question?"}]}]})
+                                 :title "Part 2"}]}]})
+
+;; (defslide introduction [:cols <-> [:block<Block> "test"] <-> [:block<Block> "test"] <-> [:question<Block> "test"]])
