@@ -29,5 +29,4 @@
          (if (or (= 39 (.-keyCode %)) (= 32 (.-keyCode %)))
            (util/go-to-next state/app-state)
            (if (= 13 (.-keyCode %))
-             (swap! state/app-state update :menu-visible (fn [x] (not x)))
-             (println "Keycode:" (.-keyCode %))))))
+             (swap! state/app-state update :menu-visible (fn [x] (not x)))))))

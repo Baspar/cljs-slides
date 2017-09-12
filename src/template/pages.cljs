@@ -4,20 +4,25 @@
 
 (defslide introduction
   [:cols
-   [:block "Block" "test"]
-   [:block "Block" "test"]
-   [:question-block "Block" "test"]])
+   [:block<Block> "test"]
+   [:block<Block> "test"]
+   [:question<Block> "test"]])
 (defslide welcome
-  [:rows [:cols [:h1 "Welcome"]]])
+  [:rows
+   [:cols
+    [:h1 "Welcome"]]])
 (defslide part1
-  [:block "Part1 content"
+  [:block<Part1_content>
    [:h1 "Reminder!"]
    "List of todo"
    [:ul
     [:li "todo1"]
+    [:li "todo2"]]
+   [:ul
+    [:li "todo1"]
     [:li "todo2"]]])
 (defslide part2
-  [:block "Part1 content"
+  [:block<Part1_content>
    [:h1 "Reminder!"]
    "List of todo"
    [:ul

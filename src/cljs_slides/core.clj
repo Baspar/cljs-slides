@@ -55,28 +55,35 @@
              x])
     objs)])
 
-;; (defn count-pauses [node]
-;;   (loop [x node]
-;;     (->> x
-;;          (map #(cond
-;;                  (vector? %) (recur %)
-;;                  (= % '<->) 1
-;;                  :else 0))
-;;          (reduce +))))
+(defn count-pauses [node]
+  (->> node
+       (map #(cond
+               (vector? %) (count-pauses %)
+               (list? %) (count-pauses %)
+               (= % '<->) 1
+               :else 0))
+       (reduce + 0)))
 
 (defmacro defslide
   [slide-name slide-raw]
-  (let [
-        ;; nb-pause (count-pauses slide-raw)
-        slide (postwalk #(if (and (vector? %)
-                                  (< 0 (count %))
-                                  (get #{:block :rows :cols :question-block} (first %)))
-                           (case (first %)
-                             :img [:img {:src (second %)}]
-                             :block (apply block (rest %))
-                             :rows (apply rows (rest %))
-                             :cols (apply cols (rest %))
-                             :question-block (apply question-block (rest %)))
-                           %)
-                        slide-raw)]
-    `(def ~slide-name ~slide)))
+  (let [nb-pause (count-pauses slide-raw)
+        slide (->> slide-raw
+                   (postwalk #(when (not= '<-> %) %))
+                   (postwalk #(if (or (list? %) (vector? %))
+                                (filterv some? %)
+                                %))
+                   (postwalk #(let [component? (and (vector? %) (< 0 (count %)))
+                                    rows? (and component? (= (first %) :rows))
+                                    cols? (and component? (= (first %) :cols))
+                                    block? (and component? (re-matches #"block<(.*)>" (name (first %))))
+                                    question? (and component? (re-matches #"question<(.*)>" (name (first %))))]
+                                (cond
+                                  rows? (apply rows (rest %))
+                                  cols? (apply cols (rest %))
+                                  block? (apply block (clojure.string/replace (last block?) "_" " ")
+                                                (rest %))
+                                  question? (apply question-block (clojure.string/replace (last question?) "_" " ")
+                                                   (rest %))
+                                  :else %))))]
+    `(def ~slide-name {:slide ~slide
+                       :nb-pauses ~nb-pause})))

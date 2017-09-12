@@ -14,14 +14,14 @@
                         :display "flex"
                         :flex-direction "column"
                         :align-items "center"}}
-          [:h1 (:title (util/get-slide state page))]
+          [:h1 (:title (util/get-slide state page)) \( (get-in (util/get-slide state page) [:format :nb-pauses]) \)]
           [:div {:style {:position "relative"
                          :display "flex"
                          :flex-grow "1"
                          :flex-direction "column"
                          :align-items "stretch"
                          :width "100%"}}
-           (:format (util/get-slide state page))]]))
+           (get-in (util/get-slide state page) [:format :slide])]]))
   ([state]
    (render-page state (get @state :slide-shown [0 0]))))
 
