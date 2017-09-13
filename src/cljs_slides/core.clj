@@ -2,7 +2,7 @@
   (:require [clojure.walk :refer [postwalk]]))
 
 ;; UI Elements
-(defn question-block [title & objs]
+(defn question-block [title params & objs]
   [:div
    [:div {:style {:background-color  "#fcbe13"
                   :padding "10px"
@@ -16,7 +16,7 @@
                   :box-shadow "0 4px 2px -3px"
                   :background-color "#fcd123"}}
     (vec objs)]])
-(defn block [title & objs]
+(defn block [title params & objs]
   [:div
    [:div {:style {:background-color  "#039088"
                   :padding "10px"
@@ -30,7 +30,7 @@
                   :box-shadow "0 4px 2px -3px"
                   :background-color "#02a89e"}}
     (vec objs)]])
-(defn rows [& objs]
+(defn rows [params & objs]
   [:div {:style {:flex-grow 1
                  :display "flex"
                  :flex-direction "column"
@@ -43,7 +43,7 @@
                            :margin "20px 0px"}}
              x])
     objs)])
-(defn cols [& objs]
+(defn cols [params & objs]
   [:div {:style {:flex-grow 1
                  :display "flex"
                  :justify-content "space-around"
@@ -81,8 +81,25 @@
                                 [new-pause (vec (concat buf [new-element]))]))
                             [pause []]
                             node)
-     (= '<-> node) [(inc pause) (str "<" pause "->")]
+     (= '<-> node) [(inc pause) (symbol (str "<" pause "->"))]
      :else [pause node])))
+(defn assign-visibility
+  ([node]
+   (last (assign-visibility 0 node)))
+  ([pause node]
+   (let [pause? (and (symbol? node) (re-matches #"<(\d*)->" (str node)))
+         pause-from (when pause? (read-string (second pause?)))
+         visibility-map {:from pause}]
+     (cond
+       pause? [pause-from nil]
+       (component? node) (let [component-type (first node)
+                               component-children (rest node)]
+                           (reduce (fn [[old-pause buf] element]
+                                     (let [[new-pause new-element] (assign-visibility old-pause element)]
+                                       [new-pause (vec (concat buf [new-element]))]))
+                                   [pause [component-type visibility-map]]
+                                   component-children))
+       :else [pause node]))))
 
 ;; Main Macro
 (defmacro defslide
@@ -90,7 +107,8 @@
   (let [nb-pause (count-pauses slide-raw)
         slide (->> slide-raw
                    (assign-value-pause)
-                   (postwalk #(when (not= '<-> %) %))
+                   (assign-visibility)
+                   ;; (postwalk #(when (nil? (re-matches #"<\d*-\d*>" (str %))) %))
                    (postwalk #(if (component? %)
                                 (filterv some? %)
                                 %))

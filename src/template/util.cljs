@@ -5,13 +5,13 @@
 ;; Get info about group/slide
 (defn get-group
   ([state]
-   (let [slide (get @state :slide-shown [0 0])]
+   (let [slide (get @state :slide-shown)]
      (get-group state slide)))
   ([state slide]
    (get-in groups [:groups (first slide)])))
 (defn get-slide
   ([state]
-   (let [slide (get @state :slide-shown [0 0])]
+   (let [slide (get @state :slide-shown)]
      (get-slide state slide)))
   ([state slide]
    (get-in groups [:groups (first slide) :slides (last slide)])))
@@ -19,7 +19,7 @@
 ;; Get id about next/previous slide
 (defn whos-previous
   ([state]
-   (whos-previous state (get @state :slide-shown [0 0])))
+   (whos-previous state (get @state :slide-shown)))
   ([state slide]
    (let [this-group (first slide)
          this-slide (last slide)
@@ -32,7 +32,7 @@
        [prev-group (- nb-prev-group 1)])))))
 (defn whos-next
   ([state]
-   (whos-next state (get @state :slide-shown [0 0])))
+   (whos-next state (get @state :slide-shown)))
   ([state slide]
    (let [this-group (first slide)
          this-slide (last slide)
@@ -57,7 +57,7 @@
 
 ;; Go to spesific slide or next/previous
 (defn go-to [state slide]
-  (let [current-slide (get @state :slide-shown [0 0])]
+  (let [current-slide (get @state :slide-shown)]
     (swap! state #(-> %
                       (assoc :slide-shown slide)
                       (assoc :anim (if (= 1 (compare current-slide slide))

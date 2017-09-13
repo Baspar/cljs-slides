@@ -4,13 +4,8 @@
 
 (defslide introduction
   [:cols
-   <-> ;; 1
-   [:block<Block>
-    <-> ;; 2
-    "test"]
-   <-> ;; 3
    [:block<Block> "test"]
-   <-> ;; 4
+   [:block<Block> "test"]
    [:question<Block> "test"]])
 
 (defslide welcome
@@ -20,10 +15,14 @@
 
 (defslide part1
   [:block<Part1_content>
+   <->
    [:h1 "Reminder!"]
-   "List of todo"
+   <->
+   [:div "List of todo"]
    [:ul
+    <->
     [:li "todo1"]
+    <->
     [:li "todo2"]]
    [:ul
     [:li "todo1"]
@@ -51,5 +50,3 @@
                                 {:id :part2
                                  :format part2
                                  :title "Part 2"}]}]})
-
-;; (defslide introduction [:cols <-> [:block<Block> "test"] <-> [:block<Block> "test"] <-> [:question<Block> "test"]])
