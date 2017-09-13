@@ -135,6 +135,14 @@
                                                 (rest %))
                                   question? (apply question-block (clojure.string/replace (last question?) "_" " ")
                                                    (rest %))
+                                  ;; (component? %) (let [params (second %)
+                                  ;;                      from-pause (get params :from)
+                                  ;;                      to-pause (get params :to)]
+                                  ;;                  (vec (concat
+                                  ;;                         [(first %)]
+                                  ;;                         [{:style {:transition "opacity .3s ease-in-out"
+                                  ;;                                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}]
+                                  ;;                         (rest (rest %)))))
                                   :else %))))]
     `(def ~slide-name {:slide (fn [~'pause] ~slide)
                        :nb-pauses ~nb-pause})))
