@@ -1,46 +1,30 @@
 (ns template.ui
   (:require
-    [template.dispatch :as dispatch]
-    [template.util :as util]
-    [template.pages :as pages])
+    [template.pages :refer [groups]]
+    [template.util :as util])
   (:require-macros
-   [devcards.core :as dc :refer [defcard deftest]]
    [sablono.core :as sab :refer [html]]))
 
 (defn render-page
   ([state page]
-   (html [:div {:key ((util/get-slide state page) :id)
-                :style {:height "100%"
-                        :width "100%"
-                        :position "absolute"
-                        :display "flex"
-                        :flex-direction "column"
-                        :align-items "center"}}
-          [:h1 (:title (util/get-slide state page))]
-          [:div {:style {:position "relative"
-                         :display "flex"
-                         :flex-grow "1"
-                         :flex-direction "column"
-                         :align-items "stretch"
-                         :width "100%"}}
-           (pages/render-page state page)]]))
+   (let [[group slide pause] page]
+     (html [:div {:key ((util/get-slide state page) :id)
+                  :style {:height "100%"
+                          :width "100%"
+                          :position "absolute"
+                          :display "flex"
+                          :flex-direction "column"
+                          :align-items "center"}}
+            [:h1 (:title (util/get-slide state page)) (str page) ]
+            [:div {:style {:position "relative"
+                           :display "flex"
+                           :flex-grow "1"
+                           :flex-direction "column"
+                           :align-items "stretch"
+                           :width "100%"}}
+             ((get-in (util/get-slide state page) [:format :slide]) pause)]])))
   ([state]
-   (render-page state (get @state :slide-shown [0 0]))
-   #_(html [:div {:key ((util/get-slide state) :id)
-                :style {:height "100%"
-                        :width "100%"
-                        :position "absolute"
-                        :display "flex"
-                        :flex-direction "column"
-                        :align-items "center"}}
-          [:h1 (:title (util/get-slide state))]
-          [:div {:style {:position "relative"
-                         :display "flex"
-                         :flex-grow "1"
-                         :flex-direction "column"
-                         :align-items "stretch"
-                         :width "100%"}}
-           (pages/render-page state)]])))
+   (render-page state (get @state :slide-shown [0 0]))))
 
 (def header
   [:svg {:height "20%"
@@ -103,6 +87,7 @@
                   :align-items "center"}}
     [:div {:style {:transform "translateX(10vw)"}}
      (map-indexed (fn [i1 x]
+                    (println (str "Groupe" i1))
                     [:div {:style {:padding "5px"
                                    :font-size "24px"}}
                      (:title x)
@@ -119,11 +104,10 @@
                                                             :font-size "16px"
                                                             :opacity (if (= [i1 i2] (@state :highlight)) 1 0.5)
                                                             :cursor "pointer"
-                                                            :background-color "grey"
-                                                            }}
+                                                            :background-color "grey"}}
                                               (:title y)])
                                   (:slides x))])
-                  (@state :groups))]
+                  (:groups groups))]
     [:div {:style {:height "100vh"
                    :width "100vw"
                    :transform "scale(.4)"
@@ -135,7 +119,7 @@
 (defn page [state]
   (html
     [:div
-     (summary state)
+     ;; (summary state)
      [:div {:style {:width "100vw"
                     :height "100vh"
                     :position "relative"
@@ -158,7 +142,8 @@
                             :transitionEnter true
                             :transitionLeaveTimeout 500
                             :transitionEnterTimeout 500}
-                       (render-page state))]]]))
+                       (render-page state))]]]
+    ))
 
 (defn app [state]
   "Show or transition between application pages"
