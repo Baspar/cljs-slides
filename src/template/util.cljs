@@ -14,7 +14,7 @@
    (let [slide (get @state :slide-shown)]
      (get-slide state slide)))
   ([state slide]
-   (get-in groups [:groups (first slide) :slides (last slide)])))
+   (get-in groups [:groups (first slide) :slides (second slide)])))
 
 ;; Get id about next/previous slide
 (defn whos-previous
@@ -22,26 +22,24 @@
    (whos-previous state (get @state :slide-shown)))
   ([state slide]
    (let [this-group (first slide)
-         this-slide (last slide)
+         this-slide (second slide)
          prev-group (- this-group 1)
          prev-slide (- this-slide 1)
          nb-prev-group (count (get-in groups [:groups prev-group :slides]))]
-   (if (get-slide state [this-group prev-slide])
-     [this-group prev-slide]
-     (if (get-slide state [prev-group (- nb-prev-group 1)])
-       [prev-group (- nb-prev-group 1)])))))
+     (cond
+       (get-slide state [this-group prev-slide]) [this-group prev-slide 0]
+       (get-slide state [prev-group (- nb-prev-group 1)]) [prev-group (- nb-prev-group 1) 0]))))
 (defn whos-next
   ([state]
    (whos-next state (get @state :slide-shown)))
   ([state slide]
    (let [this-group (first slide)
-         this-slide (last slide)
+         this-slide (second slide)
          next-group (+ this-group 1)
          next-slide (+ this-slide 1)]
-     (if (get-slide state [this-group next-slide])
-       [this-group next-slide]
-       (if (get-slide state [next-group 0])
-         [next-group 0])))))
+     (cond
+       (get-slide state [this-group next-slide]) [this-group next-slide 0]
+       (get-slide state [next-group 0]) [next-group 0 0]))))
 
 ;; Check if next/previous slide are reachable
 (defn can-go-previous?

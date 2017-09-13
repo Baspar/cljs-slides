@@ -14,7 +14,7 @@
                         :display "flex"
                         :flex-direction "column"
                         :align-items "center"}}
-          [:h1 (:title (util/get-slide state page)) \( (get-in (util/get-slide state page) [:format :nb-pauses]) \)]
+          [:h1 (:title (util/get-slide state page)) (str page) ]
           [:div {:style {:position "relative"
                          :display "flex"
                          :flex-grow "1"
