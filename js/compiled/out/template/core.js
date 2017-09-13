@@ -25,17 +25,18 @@ return null;
 }
 });
 template.core.main.call(null);
-document.onkeydown = (function (p1__40305_SHARP_){
-if((cljs.core._EQ_.call(null,(37),p1__40305_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(8),p1__40305_SHARP_.keyCode))){
+document.ontouchstart = (function (){
+return template.util.go_to_next.call(null,template.state.app_state);
+});
+document.onkeydown = (function (p1__29357_SHARP_){
+if((cljs.core._EQ_.call(null,(37),p1__29357_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(8),p1__29357_SHARP_.keyCode))){
 return template.util.go_to_previous.call(null,template.state.app_state);
 } else {
-if((cljs.core._EQ_.call(null,(39),p1__40305_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(32),p1__40305_SHARP_.keyCode))){
+if((cljs.core._EQ_.call(null,(39),p1__29357_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(32),p1__29357_SHARP_.keyCode))){
 return template.util.go_to_next.call(null,template.state.app_state);
 } else {
-if(cljs.core._EQ_.call(null,(13),p1__40305_SHARP_.keyCode)){
-return cljs.core.swap_BANG_.call(null,template.state.app_state,cljs.core.update,new cljs.core.Keyword(null,"menu-visible","menu-visible",859800212),(function (x){
-return cljs.core.not.call(null,x);
-}));
+if(cljs.core._EQ_.call(null,(13),p1__29357_SHARP_.keyCode)){
+return cljs.core.swap_BANG_.call(null,template.state.app_state,cljs.core.update,new cljs.core.Keyword(null,"menu-visible","menu-visible",859800212),cljs.core.not);
 } else {
 return null;
 }
@@ -43,4 +44,4 @@ return null;
 }
 });
 
-//# sourceMappingURL=core.js.map?rel=1505303162212
+//# sourceMappingURL=core.js.map?rel=1505304176722

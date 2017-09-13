@@ -3,23 +3,23 @@ goog.provide('template.util');
 goog.require('cljs.core');
 goog.require('template.pages');
 template.util.get_group = (function template$util$get_group(var_args){
-var args40245 = [];
-var len__19529__auto___40248 = arguments.length;
-var i__19530__auto___40249 = (0);
+var args29277 = [];
+var len__19529__auto___29280 = arguments.length;
+var i__19530__auto___29281 = (0);
 while(true){
-if((i__19530__auto___40249 < len__19529__auto___40248)){
-args40245.push((arguments[i__19530__auto___40249]));
+if((i__19530__auto___29281 < len__19529__auto___29280)){
+args29277.push((arguments[i__19530__auto___29281]));
 
-var G__40250 = (i__19530__auto___40249 + (1));
-i__19530__auto___40249 = G__40250;
+var G__29282 = (i__19530__auto___29281 + (1));
+i__19530__auto___29281 = G__29282;
 continue;
 } else {
 }
 break;
 }
 
-var G__40247 = args40245.length;
-switch (G__40247) {
+var G__29279 = args29277.length;
+switch (G__29279) {
 case 1:
 return template.util.get_group.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -29,7 +29,7 @@ return template.util.get_group.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(a
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40245.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29277.length)].join('')));
 
 }
 });
@@ -45,23 +45,23 @@ return cljs.core.get_in.call(null,template.pages.groups,new cljs.core.Persistent
 
 template.util.get_group.cljs$lang$maxFixedArity = 2;
 template.util.get_slide = (function template$util$get_slide(var_args){
-var args40252 = [];
-var len__19529__auto___40255 = arguments.length;
-var i__19530__auto___40256 = (0);
+var args29284 = [];
+var len__19529__auto___29287 = arguments.length;
+var i__19530__auto___29288 = (0);
 while(true){
-if((i__19530__auto___40256 < len__19529__auto___40255)){
-args40252.push((arguments[i__19530__auto___40256]));
+if((i__19530__auto___29288 < len__19529__auto___29287)){
+args29284.push((arguments[i__19530__auto___29288]));
 
-var G__40257 = (i__19530__auto___40256 + (1));
-i__19530__auto___40256 = G__40257;
+var G__29289 = (i__19530__auto___29288 + (1));
+i__19530__auto___29288 = G__29289;
 continue;
 } else {
 }
 break;
 }
 
-var G__40254 = args40252.length;
-switch (G__40254) {
+var G__29286 = args29284.length;
+switch (G__29286) {
 case 1:
 return template.util.get_slide.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -71,7 +71,7 @@ return template.util.get_slide.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(a
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40252.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29284.length)].join('')));
 
 }
 });
@@ -86,23 +86,23 @@ return cljs.core.get_in.call(null,template.pages.groups,new cljs.core.Persistent
 
 template.util.get_slide.cljs$lang$maxFixedArity = 2;
 template.util.whos_previous = (function template$util$whos_previous(var_args){
-var args40259 = [];
-var len__19529__auto___40263 = arguments.length;
-var i__19530__auto___40264 = (0);
+var args29291 = [];
+var len__19529__auto___29295 = arguments.length;
+var i__19530__auto___29296 = (0);
 while(true){
-if((i__19530__auto___40264 < len__19529__auto___40263)){
-args40259.push((arguments[i__19530__auto___40264]));
+if((i__19530__auto___29296 < len__19529__auto___29295)){
+args29291.push((arguments[i__19530__auto___29296]));
 
-var G__40265 = (i__19530__auto___40264 + (1));
-i__19530__auto___40264 = G__40265;
+var G__29297 = (i__19530__auto___29296 + (1));
+i__19530__auto___29296 = G__29297;
 continue;
 } else {
 }
 break;
 }
 
-var G__40261 = args40259.length;
-switch (G__40261) {
+var G__29293 = args29291.length;
+switch (G__29293) {
 case 1:
 return template.util.whos_previous.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -112,7 +112,7 @@ return template.util.whos_previous.cljs$core$IFn$_invoke$arity$2((arguments[(0)]
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40259.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29291.length)].join('')));
 
 }
 });
@@ -122,10 +122,10 @@ return template.util.whos_previous.call(null,state,cljs.core.get.call(null,cljs.
 });
 
 template.util.whos_previous.cljs$core$IFn$_invoke$arity$2 = (function (state,slide){
-var vec__40262 = slide;
-var this_group = cljs.core.nth.call(null,vec__40262,(0),null);
-var this_slide = cljs.core.nth.call(null,vec__40262,(1),null);
-var this_pause = cljs.core.nth.call(null,vec__40262,(2),null);
+var vec__29294 = slide;
+var this_group = cljs.core.nth.call(null,vec__29294,(0),null);
+var this_slide = cljs.core.nth.call(null,vec__29294,(1),null);
+var this_pause = cljs.core.nth.call(null,vec__29294,(2),null);
 var prev_group = (this_group - (1));
 var prev_slide = (this_slide - (1));
 var nb_prev_group = cljs.core.count.call(null,cljs.core.get_in.call(null,template.pages.groups,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"groups","groups",-136896102),prev_group,new cljs.core.Keyword(null,"slides","slides",-1933049910)], null)));
@@ -146,23 +146,23 @@ return null;
 
 template.util.whos_previous.cljs$lang$maxFixedArity = 2;
 template.util.whos_next = (function template$util$whos_next(var_args){
-var args40267 = [];
-var len__19529__auto___40271 = arguments.length;
-var i__19530__auto___40272 = (0);
+var args29299 = [];
+var len__19529__auto___29303 = arguments.length;
+var i__19530__auto___29304 = (0);
 while(true){
-if((i__19530__auto___40272 < len__19529__auto___40271)){
-args40267.push((arguments[i__19530__auto___40272]));
+if((i__19530__auto___29304 < len__19529__auto___29303)){
+args29299.push((arguments[i__19530__auto___29304]));
 
-var G__40273 = (i__19530__auto___40272 + (1));
-i__19530__auto___40272 = G__40273;
+var G__29305 = (i__19530__auto___29304 + (1));
+i__19530__auto___29304 = G__29305;
 continue;
 } else {
 }
 break;
 }
 
-var G__40269 = args40267.length;
-switch (G__40269) {
+var G__29301 = args29299.length;
+switch (G__29301) {
 case 1:
 return template.util.whos_next.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -172,7 +172,7 @@ return template.util.whos_next.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(a
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40267.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29299.length)].join('')));
 
 }
 });
@@ -182,10 +182,10 @@ return template.util.whos_next.call(null,state,cljs.core.get.call(null,cljs.core
 });
 
 template.util.whos_next.cljs$core$IFn$_invoke$arity$2 = (function (state,slide){
-var vec__40270 = slide;
-var this_group = cljs.core.nth.call(null,vec__40270,(0),null);
-var this_slide = cljs.core.nth.call(null,vec__40270,(1),null);
-var this_pause = cljs.core.nth.call(null,vec__40270,(2),null);
+var vec__29302 = slide;
+var this_group = cljs.core.nth.call(null,vec__29302,(0),null);
+var this_slide = cljs.core.nth.call(null,vec__29302,(1),null);
+var this_pause = cljs.core.nth.call(null,vec__29302,(2),null);
 var this_nb_pause = cljs.core.get_in.call(null,template.util.get_slide.call(null,state,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [this_group,this_slide], null)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"format","format",-1306924766),new cljs.core.Keyword(null,"nb-pauses","nb-pauses",-133868075)], null));
 var next_group = (this_group + (1));
 var next_slide = (this_slide + (1));
@@ -206,23 +206,23 @@ return null;
 
 template.util.whos_next.cljs$lang$maxFixedArity = 2;
 template.util.can_go_previous_QMARK_ = (function template$util$can_go_previous_QMARK_(var_args){
-var args40275 = [];
-var len__19529__auto___40278 = arguments.length;
-var i__19530__auto___40279 = (0);
+var args29307 = [];
+var len__19529__auto___29310 = arguments.length;
+var i__19530__auto___29311 = (0);
 while(true){
-if((i__19530__auto___40279 < len__19529__auto___40278)){
-args40275.push((arguments[i__19530__auto___40279]));
+if((i__19530__auto___29311 < len__19529__auto___29310)){
+args29307.push((arguments[i__19530__auto___29311]));
 
-var G__40280 = (i__19530__auto___40279 + (1));
-i__19530__auto___40279 = G__40280;
+var G__29312 = (i__19530__auto___29311 + (1));
+i__19530__auto___29311 = G__29312;
 continue;
 } else {
 }
 break;
 }
 
-var G__40277 = args40275.length;
-switch (G__40277) {
+var G__29309 = args29307.length;
+switch (G__29309) {
 case 1:
 return template.util.can_go_previous_QMARK_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -232,7 +232,7 @@ return template.util.can_go_previous_QMARK_.cljs$core$IFn$_invoke$arity$2((argum
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40275.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29307.length)].join('')));
 
 }
 });
@@ -247,23 +247,23 @@ return cljs.core.some_QMARK_.call(null,template.util.whos_previous.call(null,sta
 
 template.util.can_go_previous_QMARK_.cljs$lang$maxFixedArity = 2;
 template.util.can_go_next_QMARK_ = (function template$util$can_go_next_QMARK_(var_args){
-var args40282 = [];
-var len__19529__auto___40285 = arguments.length;
-var i__19530__auto___40286 = (0);
+var args29314 = [];
+var len__19529__auto___29317 = arguments.length;
+var i__19530__auto___29318 = (0);
 while(true){
-if((i__19530__auto___40286 < len__19529__auto___40285)){
-args40282.push((arguments[i__19530__auto___40286]));
+if((i__19530__auto___29318 < len__19529__auto___29317)){
+args29314.push((arguments[i__19530__auto___29318]));
 
-var G__40287 = (i__19530__auto___40286 + (1));
-i__19530__auto___40286 = G__40287;
+var G__29319 = (i__19530__auto___29318 + (1));
+i__19530__auto___29318 = G__29319;
 continue;
 } else {
 }
 break;
 }
 
-var G__40284 = args40282.length;
-switch (G__40284) {
+var G__29316 = args29314.length;
+switch (G__29316) {
 case 1:
 return template.util.can_go_next_QMARK_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -273,7 +273,7 @@ return template.util.can_go_next_QMARK_.cljs$core$IFn$_invoke$arity$2((arguments
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40282.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29314.length)].join('')));
 
 }
 });
@@ -290,8 +290,8 @@ template.util.can_go_next_QMARK_.cljs$lang$maxFixedArity = 2;
 template.util.go_to = (function template$util$go_to(state,slide){
 var current_slide = cljs.core.get.call(null,cljs.core.deref.call(null,state),new cljs.core.Keyword(null,"slide-shown","slide-shown",1288064429));
 return cljs.core.swap_BANG_.call(null,state,((function (current_slide){
-return (function (p1__40289_SHARP_){
-return cljs.core.assoc.call(null,cljs.core.assoc.call(null,p1__40289_SHARP_,new cljs.core.Keyword(null,"slide-shown","slide-shown",1288064429),slide),new cljs.core.Keyword(null,"anim","anim",-1276068045),((cljs.core._EQ_.call(null,(1),cljs.core.compare.call(null,current_slide,slide)))?"previous":"next"));
+return (function (p1__29321_SHARP_){
+return cljs.core.assoc.call(null,cljs.core.assoc.call(null,p1__29321_SHARP_,new cljs.core.Keyword(null,"slide-shown","slide-shown",1288064429),slide),new cljs.core.Keyword(null,"anim","anim",-1276068045),((cljs.core._EQ_.call(null,(1),cljs.core.compare.call(null,current_slide,slide)))?"previous":"next"));
 });})(current_slide))
 );
 });
@@ -314,4 +314,4 @@ return null;
 }
 });
 
-//# sourceMappingURL=util.js.map?rel=1505303162149
+//# sourceMappingURL=util.js.map?rel=1505304033717

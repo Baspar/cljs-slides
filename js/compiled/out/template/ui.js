@@ -4,23 +4,23 @@ goog.require('cljs.core');
 goog.require('template.pages');
 goog.require('template.util');
 template.ui.render_page = (function template$ui$render_page(var_args){
-var args40294 = [];
-var len__19529__auto___40299 = arguments.length;
-var i__19530__auto___40300 = (0);
+var args29324 = [];
+var len__19529__auto___29329 = arguments.length;
+var i__19530__auto___29330 = (0);
 while(true){
-if((i__19530__auto___40300 < len__19529__auto___40299)){
-args40294.push((arguments[i__19530__auto___40300]));
+if((i__19530__auto___29330 < len__19529__auto___29329)){
+args29324.push((arguments[i__19530__auto___29330]));
 
-var G__40301 = (i__19530__auto___40300 + (1));
-i__19530__auto___40300 = G__40301;
+var G__29331 = (i__19530__auto___29330 + (1));
+i__19530__auto___29330 = G__29331;
 continue;
 } else {
 }
 break;
 }
 
-var G__40296 = args40294.length;
-switch (G__40296) {
+var G__29326 = args29324.length;
+switch (G__29326) {
 case 2:
 return template.ui.render_page.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -30,18 +30,18 @@ return template.ui.render_page.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args40294.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args29324.length)].join('')));
 
 }
 });
 
 template.ui.render_page.cljs$core$IFn$_invoke$arity$2 = (function (state,page){
-var vec__40297 = page;
-var group = cljs.core.nth.call(null,vec__40297,(0),null);
-var slide = cljs.core.nth.call(null,vec__40297,(1),null);
-var pause = cljs.core.nth.call(null,vec__40297,(2),null);
-return React.createElement("div",{"key": template.util.get_slide.call(null,state,page).call(null,new cljs.core.Keyword(null,"id","id",-1388402092)), "style": {"height": "100%", "width": "100%", "position": "absolute", "display": "flex", "flexDirection": "column", "alignItems": "center"}},(function (){var attrs40298 = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(template.util.get_slide.call(null,state,page));
-return cljs.core.apply.call(null,React.createElement,"h1",((cljs.core.map_QMARK_.call(null,attrs40298))?sablono.interpreter.attributes.call(null,attrs40298):null),((cljs.core.map_QMARK_.call(null,attrs40298))?new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null,[cljs.core.str(page)].join(''))], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null,attrs40298),sablono.interpreter.interpret.call(null,[cljs.core.str(page)].join(''))], null)));
+var vec__29327 = page;
+var group = cljs.core.nth.call(null,vec__29327,(0),null);
+var slide = cljs.core.nth.call(null,vec__29327,(1),null);
+var pause = cljs.core.nth.call(null,vec__29327,(2),null);
+return React.createElement("div",{"key": template.util.get_slide.call(null,state,page).call(null,new cljs.core.Keyword(null,"id","id",-1388402092)), "style": {"height": "100%", "width": "100%", "position": "absolute", "display": "flex", "flexDirection": "column", "alignItems": "center"}},(function (){var attrs29328 = new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(template.util.get_slide.call(null,state,page));
+return cljs.core.apply.call(null,React.createElement,"h1",((cljs.core.map_QMARK_.call(null,attrs29328))?sablono.interpreter.attributes.call(null,attrs29328):null),((cljs.core.map_QMARK_.call(null,attrs29328))?new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null,[cljs.core.str(page)].join(''))], null):new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [sablono.interpreter.interpret.call(null,attrs29328),sablono.interpreter.interpret.call(null,[cljs.core.str(page)].join(''))], null)));
 })(),React.createElement("div",{"style": {"position": "relative", "display": "flex", "flexGrow": "1", "flexDirection": "column", "alignItems": "stretch", "width": "100%"}},sablono.interpreter.interpret.call(null,cljs.core.get_in.call(null,template.util.get_slide.call(null,state,page),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"format","format",-1306924766),new cljs.core.Keyword(null,"slide","slide",142491892)], null)).call(null,pause))));
 });
 
@@ -92,4 +92,4 @@ template.ui.app = (function template$ui$app(state){
 return template.ui.page.call(null,state);
 });
 
-//# sourceMappingURL=ui.js.map?rel=1505303162195
+//# sourceMappingURL=ui.js.map?rel=1505304033771

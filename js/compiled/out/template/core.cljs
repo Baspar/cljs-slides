@@ -23,8 +23,10 @@
       (.render js/ReactDOM (ui/page state/app-state) node))))
 
 (main)
+(set! (.-ontouchstart js/document)
+      #(util/go-to-next state/app-state))
 (set! (.-onkeydown js/document)
       #(cond
          (or (= 37 (.-keyCode %)) (= 8 (.-keyCode %))) (util/go-to-previous state/app-state)
          (or (= 39 (.-keyCode %)) (= 32 (.-keyCode %))) (util/go-to-next state/app-state)
-         (= 13 (.-keyCode %)) (swap! state/app-state update :menu-visible (fn [x] (not x)))))
+         (= 13 (.-keyCode %)) (swap! state/app-state update :menu-visible not)))
