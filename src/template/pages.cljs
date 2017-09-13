@@ -4,8 +4,11 @@
 
 (defslide introduction
   [:cols
+   <->
    [:block<Block> "test"]
+   <->
    [:block<Block> "test"]
+   <->
    [:question<Block> "test"]])
 
 (defslide welcome
@@ -15,9 +18,7 @@
 
 (defslide part1
   [:block<Part1_content>
-   <->
    [:h1 "Reminder!"]
-   <->
    [:div "List of todo"]
    [:ul
     <->
@@ -25,7 +26,9 @@
     <->
     [:li "todo2"]]
    [:ul
+    <->
     [:li "todo1"]
+    <->
     [:li "todo2"]]])
 
 (defslide part2
