@@ -25,17 +25,44 @@ return null;
 }
 });
 template.core.main.call(null);
-document.ontouchstart = (function (){
+var mem_91835 = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"delta","delta",108939957),(0)], null));
+document.ontouchstart = ((function (mem_91835){
+return (function (p1__91833_SHARP_){
+var x = (p1__91833_SHARP_.touches[(0)]).pageX;
+return cljs.core.reset_BANG_.call(null,mem_91835,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"delta","delta",108939957),(0)], null));
+});})(mem_91835))
+;
+
+document.ontouchmove = ((function (mem_91835){
+return (function (p1__91834_SHARP_){
+var x = (p1__91834_SHARP_.touches[(0)]).pageX;
+var delta = (cljs.core.deref.call(null,mem_91835).call(null,new cljs.core.Keyword(null,"x","x",2099068185)) - x);
+return cljs.core.reset_BANG_.call(null,mem_91835,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"delta","delta",108939957),delta], null));
+});})(mem_91835))
+;
+
+document.ontouchend = ((function (mem_91835){
+return (function (){
+var delta = cljs.core.deref.call(null,mem_91835).call(null,new cljs.core.Keyword(null,"delta","delta",108939957));
+if(((0) <= delta)){
 return template.util.go_to_next.call(null,template.state.app_state);
-});
-document.onkeydown = (function (p1__29357_SHARP_){
-if((cljs.core._EQ_.call(null,(37),p1__29357_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(8),p1__29357_SHARP_.keyCode))){
+} else {
+if(((-5) > delta)){
 return template.util.go_to_previous.call(null,template.state.app_state);
 } else {
-if((cljs.core._EQ_.call(null,(39),p1__29357_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(32),p1__29357_SHARP_.keyCode))){
+return null;
+}
+}
+});})(mem_91835))
+;
+document.onkeydown = (function (p1__91836_SHARP_){
+if((cljs.core._EQ_.call(null,(37),p1__91836_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(8),p1__91836_SHARP_.keyCode))){
+return template.util.go_to_previous.call(null,template.state.app_state);
+} else {
+if((cljs.core._EQ_.call(null,(39),p1__91836_SHARP_.keyCode)) || (cljs.core._EQ_.call(null,(32),p1__91836_SHARP_.keyCode))){
 return template.util.go_to_next.call(null,template.state.app_state);
 } else {
-if(cljs.core._EQ_.call(null,(13),p1__29357_SHARP_.keyCode)){
+if(cljs.core._EQ_.call(null,(13),p1__91836_SHARP_.keyCode)){
 return cljs.core.swap_BANG_.call(null,template.state.app_state,cljs.core.update,new cljs.core.Keyword(null,"menu-visible","menu-visible",859800212),cljs.core.not);
 } else {
 return null;
@@ -44,4 +71,4 @@ return null;
 }
 });
 
-//# sourceMappingURL=core.js.map?rel=1505304176722
+//# sourceMappingURL=core.js.map?rel=1505378652760
