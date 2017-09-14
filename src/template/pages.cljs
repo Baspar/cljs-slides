@@ -34,17 +34,7 @@
     [:li "todo1"]
     [:li "todo2"]]])
 
-(def groups {:groups [{:title "Introduction"
-                       :slides [{:id :welcome
-                                 :format welcome
-                                 :title "Welcome"}
-                                {:id :introduction
-                                 :format introduction
-                                 :title "Introduction"}]}
-                      {:title "Organisation"
-                       :slides [{:id :part1
-                                 :format part1
-                                 :title "Part 1"}
-                                {:id :part2
-                                 :format part2
-                                 :title "Part 2"}]}]})
+(def groups [["Introduction" [["Welcome" welcome]
+                              ["Introduction" introduction]]]
+             ["Organisation" [["Part 1" part1]
+                              ["Part 2" part2 ]]]])
