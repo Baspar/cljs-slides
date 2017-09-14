@@ -23,8 +23,21 @@
       (.render js/ReactDOM (ui/page state/app-state) node))))
 
 (main)
-(set! (.-ontouchstart js/document)
-      #(util/go-to-next state/app-state))
+(let [mem (atom {:x 0
+                 :delta 0})]
+  (set! (.-ontouchstart js/document)
+        #(let [x (-> % (.-touches) (aget 0) (.-pageX))]
+           (reset! mem {:x x :delta 0})))
+  (set! (.-ontouchmove js/document)
+        #(let [x (-> % (.-touches) (aget 0) (.-pageX))
+               delta (- (@mem :x) x)]
+           (println delta)
+           (reset! mem {:x x :delta delta})))
+  (set! (.-ontouchend js/document)
+        #(let [delta (@mem :delta)]
+           (cond
+              (< 5 delta) (util/go-to-next state/app-state)
+              (> -5 delta) (util/go-to-previous state/app-state)))))
 (set! (.-onkeydown js/document)
       #(cond
          (or (= 37 (.-keyCode %)) (= 8 (.-keyCode %))) (util/go-to-previous state/app-state)
