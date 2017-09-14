@@ -76,9 +76,9 @@
        (reduce + 0)))
 (defn list-specified-breakpoints [node]
   (let [res (and (symbol? node)
-                 (or (re-matches #"<-(\d+)>" (str node))
-                     (re-matches #"<(\d+)->" (str node))
-                     (re-matches #"<(\d+)-(\d+)>" (str node))))]
+                 (or (re-matches #"<(\d+)-(\d+)>" (str node))
+                     (re-matches #"<-(\d+)>" (str node))
+                     (re-matches #"<(\d+)->" (str node))))]
     (cond
       (vector? node) (->> node
                           (keep list-specified-breakpoints)
@@ -120,6 +120,11 @@
                                        [new-pause (vec (concat buf [new-element]))]))
                                    [pause [component-type visibility-map]]
                                    component-children))
+       (vector? node) (reduce (fn [[old-pause buf] element]
+                                (let [[new-pause new-element] (assign-visibility old-pause element)]
+                                  [new-pause (vec (concat buf [new-element]))]))
+                              [pause []]
+                              node)
        :else [pause node]))))
 
 ;; Main Macro

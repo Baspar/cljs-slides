@@ -19,15 +19,11 @@
 (defslide part1
   [:cols
    [:rows
-    <->
     [:block<1> 1]
-    <->
     [:block<2> 2]
     <->
     [:block<3> 3]
-    <->
     [:block<4> 4]]
-   <0->
    [:block<Image>]])
 
 (defslide part2
