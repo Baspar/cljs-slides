@@ -2,31 +2,33 @@
   (:require-macros
     [cljs-slides.core :refer [defslide]]))
 
-(defslide introduction
-  [:cols
-   [:block<Block> "test"]
-   [:block<Block> "test"]
-   [:question<Block> "test"]])
-
 (defslide welcome
   [:rows
    [:cols
     [:h1 "Welcome"]]])
 
+(defslide introduction
+  [:cols
+   <->
+   [:block<Block> "test"]
+   <->
+   [:block<Block> "test"]
+   <->
+   [:question<Block> "test"]])
+
 (defslide part1
-  [:block<Part1_content>
-   [:h1 "Reminder!"]
-   [:div "List of todo"]
-   [:ul
+  [:cols
+   [:rows
     <->
-    [:li "todo1"]
+    [:block<1> 1]
     <->
-    [:li "todo2"]]
-   [:ul
+    [:block<2> 2]
     <->
-    [:li "todo1"]
+    [:block<3> 3]
     <->
-    [:li "todo2"]]])
+    [:block<4> 4]]
+   <0->
+   [:block<Image>]])
 
 (defslide part2
   [:block<Part1_content>

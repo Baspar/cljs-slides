@@ -127,7 +127,7 @@
   [slide-name slide-raw]
   (let [nb-pause (count-pauses slide-raw)
         specified-breakpoints (list-specified-breakpoints slide-raw)
-        breakpoints (->> (concat (range (max 1 nb-pause)) specified-breakpoints)
+        breakpoints (->> (concat (range (inc nb-pause)) specified-breakpoints)
                          (into #{})
                          (into [])
                          (sort)
