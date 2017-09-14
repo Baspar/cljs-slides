@@ -4,11 +4,8 @@
 
 (defslide introduction
   [:cols
-   <->
    [:block<Block> "test"]
-   <->
    [:block<Block> "test"]
-   <->
    [:question<Block> "test"]])
 
 (defslide welcome

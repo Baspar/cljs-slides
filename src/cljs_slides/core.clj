@@ -74,6 +74,18 @@
                (= % '<->) 1
                :else 0))
        (reduce + 0)))
+(defn list-specified-breakpoints [node]
+  (let [res (and (symbol? node)
+                 (or (re-matches #"<-(\d+)>" (str node))
+                     (re-matches #"<(\d+)->" (str node))
+                     (re-matches #"<(\d+)-(\d+)>" (str node))))]
+    (cond
+      (vector? node) (->> node
+                          (keep list-specified-breakpoints)
+                          (mapcat identity)
+                          (vec))
+      (and (symbol? node) res) (mapv read-string (rest res))
+      :else nil)))
 (defn component? [x]
   (and (vector? x)
        (< 0 (count x))
@@ -114,6 +126,12 @@
 (defmacro defslide
   [slide-name slide-raw]
   (let [nb-pause (count-pauses slide-raw)
+        specified-breakpoints (list-specified-breakpoints slide-raw)
+        breakpoints (->> (concat (range (max 1 nb-pause)) specified-breakpoints)
+                         (into #{})
+                         (into [])
+                         (sort)
+                         (vec))
         slide-fn (symbol (str slide-name "-fn"))
         slide (->> slide-raw
                    (assign-value-pause)
@@ -140,4 +158,5 @@
                                   ;;                         (rest (rest %)))))
                                   :else %))))]
     `(def ~slide-name {:slide (fn [~'pause] ~slide)
-                       :nb-pauses ~nb-pause})))
+                       :breakpoints ~breakpoints
+                       :nb-pauses ~(dec (count breakpoints))})))

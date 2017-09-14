@@ -7,22 +7,28 @@
 
 (defn render-page
   ([state page]
-   (let [[group slide pause] page]
-     (html [:div {:key ((util/get-slide state page) :id)
+   (let [[_ _ pause] page
+         slide (util/get-slide state page)
+         breakpoints (get-in slide [:format :breakpoints])]
+     (html [:div {:key (slide :id)
                   :style {:height "100%"
                           :width "100%"
                           :position "absolute"
                           :display "flex"
                           :flex-direction "column"
                           :align-items "center"}}
-            [:h1 (:title (util/get-slide state page)) (str page) ]
+            [:h1
+             (slide :title)
+             ;; (str (get-in slide [:format :breakpoints]))
+             ;; (str [(last page)])
+             ]
             [:div {:style {:position "relative"
                            :display "flex"
                            :flex-grow "1"
                            :flex-direction "column"
                            :align-items "stretch"
                            :width "100%"}}
-             ((get-in (util/get-slide state page) [:format :slide]) pause)]])))
+             ((get-in slide [:format :slide]) (get breakpoints pause))]])))
   ([state]
    (render-page state (get @state :slide-shown [0 0]))))
 

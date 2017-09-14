@@ -31,12 +31,11 @@
   (set! (.-ontouchmove js/document)
         #(let [x (-> % (.-touches) (aget 0) (.-pageX))
                delta (- (@mem :x) x)]
-           (println delta)
            (reset! mem {:x x :delta delta})))
   (set! (.-ontouchend js/document)
         #(let [delta (@mem :delta)]
            (cond
-              (< 5 delta) (util/go-to-next state/app-state)
+              (<= 0 delta) (util/go-to-next state/app-state)
               (> -5 delta) (util/go-to-previous state/app-state)))))
 (set! (.-onkeydown js/document)
       #(cond
