@@ -1,74 +1,69 @@
 (ns cljs-slides.core
   (:require [clojure.walk :refer [postwalk]]))
 
+;; UI Helper
+(defn opacity-fn [params]
+  (let [from-pause (get params :from)
+        to-pause (get params :to)]
+    {:transition "opacity .3s ease-in-out"
+     :opacity `(if (< ~'pause ~from-pause) 0 1)}))
+
 ;; UI Elements
 (defn question-block [title params & objs]
-  (let [from-pause (get params :from)
-        to-pause (get params :to)]
-    [:div {:style {:transition "opacity .3s ease-in-out"
-                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}
-     [:div {:style {:background-color  "#fcbe13"
-                    :padding "10px"
-                    :font-size "24px"
-                    :color "white"}}
-      title]
-     [:div {:style {:flex-grow 1
-                    :display "flex"
-                    :flex-direction "column"
-                    :padding "20px"
-                    :box-shadow "0 4px 2px -3px"
-                    :background-color "#fcd123"}}
-      (vec objs)]]))
+  [:div {:style (opacity-fn params)}
+   [:div {:style {:background-color  "#fcbe13"
+                  :padding "10px"
+                  :font-size "24px"
+                  :color "white"}}
+    title]
+   [:div {:style {:flex-grow 1
+                  :display "flex"
+                  :flex-direction "column"
+                  :padding "20px"
+                  :box-shadow "0 4px 2px -3px"
+                  :background-color "#fcd123"}}
+    (vec objs)]])
 (defn block [title params & objs]
-  (let [from-pause (get params :from)
-        to-pause (get params :to)]
-    [:div {:style {:transition "opacity .3s ease-in-out"
-                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}
-     [:div {:style {:background-color  "#039088"
-                    :padding "10px"
-                    :font-size "24px"
-                    :color "white"}}
-      title]
-     [:div {:style {:flex-grow 1
-                    :display "flex"
-                    :flex-direction "column"
-                    :padding "20px"
-                    :box-shadow "0 4px 2px -3px"
-                    :background-color "#02a89e"}}
-      (vec objs)]]))
+  [:div {:style (opacity-fn params)}
+   [:div {:style {:background-color  "#039088"
+                  :padding "10px"
+                  :font-size "24px"
+                  :color "white"}}
+    title]
+   [:div {:style {:flex-grow 1
+                  :display "flex"
+                  :flex-direction "column"
+                  :padding "20px"
+                  :box-shadow "0 4px 2px -3px"
+                  :background-color "#02a89e"}}
+    (vec objs)]])
 (defn rows [params & objs]
-  (let [from-pause (get params :from)
-        to-pause (get params :to)]
-    [:div {:style {:flex-grow 1
-                   :display "flex"
-                   :flex-direction "column"
-                   :justify-content "space-around"
-                   :align-items "center"
-                   :transition "opacity .3s ease-in-out"
-                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}
+  [:div {:style (merge {:flex-grow 1
+                        :display "flex"
+                        :flex-direction "column"
+                        :justify-content "space-around"
+                        :align-items "center"}
+                       (opacity-fn params))}
      (mapv
        (fn [x] [:div {:style {:display "flex"
                               :flex-direction "column"
                               :flex-grow 1
                               :margin "20px 0px"}}
                 x])
-       objs)]))
+       objs)])
 (defn cols [params & objs]
-  (let [from-pause (get params :from)
-        to-pause (get params :to)]
-    [:div {:style {:flex-grow 1
-                   :display "flex"
-                   :justify-content "space-around"
-                   :align-items "center"
-                   :transition "opacity .3s ease-in-out"
-                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}
-     (mapv
-       (fn [x] [:div {:style {:display "flex"
-                              :flex-direction "column"
-                              :flex-grow 1
-                              :margin "0px 20px"}}
-                x])
-       objs)]))
+  [:div {:style (merge {:flex-grow 1
+                        :display "flex"
+                        :justify-content "space-around"
+                        :align-items "center"}
+                       (opacity-fn params))}
+   (mapv
+     (fn [x] [:div {:style {:display "flex"
+                            :flex-direction "column"
+                            :flex-grow 1
+                            :margin "0px 20px"}}
+              x])
+     objs)])
 
 ;; Helpers
 (defn count-pauses [node]
