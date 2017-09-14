@@ -8,13 +8,16 @@
     [:h1 "Welcome"]]])
 
 (defslide introduction
-  [:cols
-   <->
-   [:block<Block> "test"]
-   <->
-   [:block<Block> "test"]
-   <->
-   [:question<Block> "test"]])
+  [:rows
+   [:cols
+    <->
+    [:block<Block> "test"]
+    <->
+    [:block<Block> "test"]
+    <->
+    [:question<Block> "test"]]
+   <0->
+   [:block<Block> "test"]])
 
 (defslide part1
   [:cols
