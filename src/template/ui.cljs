@@ -19,8 +19,8 @@
                           :align-items "center"}}
             [:h1
              slide-title
-             (str (slide :breakpoints))
-             (str [(last page)])
+             ;; (str (slide :breakpoints))
+             ;; (str [(last page)])
              ]
             [:div {:style {:position "relative"
                            :display "flex"

@@ -21,13 +21,22 @@
 
 (defslide part1
   [:cols
-   [:rows
-    [:block<1> 1]
-    [:block<2> 2]
-    <->
-    [:block<3> 3]
-    [:block<4> 4]]
-   [:block<Image>]])
+   [:block<List_of_stuff>
+    "My list of stuff"
+    [:ul
+     <->
+     [:li [:h3 "Stuff #1"]]
+     <->
+     <->
+     [:li [:h3 "Stuff #2"]]
+     <->
+     [:li [:h3 "Stuff #3"]]
+     <->
+     [:li [:h3 "Stuff #4"]]
+     <->
+     [:li [:h3 "Stuff #5"]]
+     <->
+     [:li [:h3 "Stuff #6"]]]]])
 
 (defslide part2
   [:block<Part1_content>
