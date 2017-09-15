@@ -5,12 +5,10 @@
 (defn opacity-fn [params]
   (if (map? params)
     (let [from-pause (get params :from 0)
-          ;; to-pause (get params :to 1000)
-          ]
+          to-pause (get params :to 10000)]
       {:style {:transition "opacity .3s ease-in-out"
-               :opacity `(if (and (< ~'pause ~from-pause)
-                                  ;; (> ~'pause ~to-pause)
-                                  )
+               :opacity `(if (or (< ~'pause ~from-pause)
+                                 (> ~'pause ~to-pause))
                            0
                            1)}})
     params))
