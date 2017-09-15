@@ -3,14 +3,21 @@
 
 ;; UI Helper
 (defn opacity-fn [params]
-  (let [from-pause (get params :from)
-        to-pause (get params :to)]
-    {:transition "opacity .3s ease-in-out"
-     :opacity `(if (< ~'pause ~from-pause) 0 1)}))
+  (if (map? params)
+    (let [from-pause (get params :from 0)
+          ;; to-pause (get params :to 1000)
+          ]
+      {:style {:transition "opacity .3s ease-in-out"
+               :opacity `(if (and (< ~'pause ~from-pause)
+                                  ;; (> ~'pause ~to-pause)
+                                  )
+                           0
+                           1)}})
+    params))
 
 ;; UI Elements
 (defn question-block [title params & objs]
-  [:div {:style (opacity-fn params)}
+  [:div (opacity-fn params)
    [:div {:style {:background-color  "#fcbe13"
                   :padding "10px"
                   :font-size "24px"
@@ -24,7 +31,7 @@
                   :background-color "#fcd123"}}
     (vec objs)]])
 (defn block [title params & objs]
-  [:div {:style (opacity-fn params)}
+  [:div (opacity-fn params)
    [:div {:style {:background-color  "#039088"
                   :padding "10px"
                   :font-size "24px"
@@ -38,12 +45,13 @@
                   :background-color "#02a89e"}}
     (vec objs)]])
 (defn rows [params & objs]
-  [:div {:style (merge {:flex-grow 1
-                        :display "flex"
-                        :flex-direction "column"
-                        :justify-content "space-around"
-                        :align-items "center"}
-                       (opacity-fn params))}
+  [:div (merge-with merge
+                    {:style {:flex-grow 1
+                             :display "flex"
+                             :flex-direction "column"
+                             :justify-content "space-around"
+                             :align-items "stretch"}}
+                    (opacity-fn params))
      (mapv
        (fn [x] [:div {:style {:display "flex"
                               :flex-direction "column"
@@ -52,11 +60,12 @@
                 x])
        objs)])
 (defn cols [params & objs]
-  [:div {:style (merge {:flex-grow 1
-                        :display "flex"
-                        :justify-content "space-around"
-                        :align-items "center"}
-                       (opacity-fn params))}
+  [:div (merge-with merge
+                    {:style {:flex-grow 1
+                             :display "flex"
+                             :justify-content "space-around"
+                             :align-items "stretch"}}
+                    (opacity-fn params))
    (mapv
      (fn [x] [:div {:style {:display "flex"
                             :flex-direction "column"
@@ -64,6 +73,9 @@
                             :margin "0px 20px"}}
               x])
      objs)])
+(defn format-component [component-type params & component-children]
+  (vec (concat [component-type (opacity-fn params)]
+               component-children)))
 
 ;; Helpers
 (defn count-pauses [node]
@@ -132,7 +144,7 @@
   [slide-name slide-raw]
   (let [nb-pause (count-pauses slide-raw)
         specified-breakpoints (list-specified-breakpoints slide-raw)
-        breakpoints (->> (concat (range (inc nb-pause)) specified-breakpoints)
+        breakpoints (->> (into (range (inc nb-pause)) specified-breakpoints)
                          (into #{})
                          (into [])
                          (sort)
@@ -153,14 +165,7 @@
                                                 (rest %))
                                   question? (apply question-block (clojure.string/replace (last question?) "_" " ")
                                                    (rest %))
-                                  ;; (component? %) (let [params (second %)
-                                  ;;                      from-pause (get params :from)
-                                  ;;                      to-pause (get params :to)]
-                                  ;;                  (vec (concat
-                                  ;;                         [(first %)]
-                                  ;;                         [{:style {:transition "opacity .3s ease-in-out"
-                                  ;;                                   :opacity `(if (< ~'pause ~from-pause) 0 1)}}]
-                                  ;;                         (rest (rest %)))))
+                                  (component? %) (apply format-component %)
                                   :else %))))]
     `(def ~slide-name {:slide (fn [~'pause] ~slide)
                        :breakpoints ~breakpoints
