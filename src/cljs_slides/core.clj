@@ -14,6 +14,13 @@
     params))
 
 ;; UI Elements
+(defn center [params classname & objs]
+  [:div {:style {:flex-grow 1
+                 :display "flex"
+                 :flex-direction "column"
+                 :justify-content "center"
+                 :align-items "center"}}
+   objs])
 (defn question-block [title params & objs]
   [:div (opacity-fn params)
    [:div {:style {:background-color  "#fcbe13"
@@ -42,7 +49,7 @@
                   :box-shadow "0 4px 2px -3px"
                   :background-color "#02a89e"}}
     (vec objs)]])
-(defn rows [params & objs]
+(defn rows [params classname & objs]
   [:div (merge-with merge
                     {:style {:flex-grow 1
                              :display "flex"
@@ -57,7 +64,7 @@
                               :margin "20px 0px"}}
                 x])
        objs)])
-(defn cols [params & objs]
+(defn cols [params classname & objs]
   [:div (merge-with merge
                     {:style {:flex-grow 1
                              :display "flex"
@@ -152,16 +159,18 @@
                    (assign-value-pause)
                    (assign-visibility)
                    (postwalk #(if (component? %) (filterv some? %) %))
-                   (postwalk #(let [rows? (and (component? %) (= (first %) :rows))
-                                    cols? (and (component? %) (= (first %) :cols))
-                                    block? (and (component? %) (re-matches #"block<(.*)>" (name (first %))))
-                                    question? (and (component? %) (re-matches #"question<(.*)>" (name (first %))))]
+                   (postwalk #(let [rows? (and (component? %) (re-matches #"rows(\..*)?" (name (first %))))
+                                    cols? (and (component? %) (re-matches #"cols(\..*)?" (name (first %))))
+                                    block? (and (component? %) (re-matches #"block<(.*)>(\..*)?" (name (first %))))
+                                    question? (and (component? %) (re-matches #"question<(.*)>(\..*)?" (name (first %))))
+                                    center? (and (component? %) (re-matches #"center(\..*)?" (name (first %))))]
                                 (cond
-                                  rows? (apply rows (rest %))
-                                  cols? (apply cols (rest %))
-                                  block? (apply block (clojure.string/replace (last block?) "_" " ")
+                                  rows? (apply rows (last rows?) (rest %))
+                                  cols? (apply cols (last cols?) (rest %))
+                                  ;; center? (apply center (last center?) (rest %))
+                                  block? (apply block (clojure.string/replace (second block?) "_" " ")
                                                 (rest %))
-                                  question? (apply question-block (clojure.string/replace (last question?) "_" " ")
+                                  question? (apply question-block (clojure.string/replace (second question?) "_" " ")
                                                    (rest %))
                                   (component? %) (apply format-component %)
                                   :else %))))]

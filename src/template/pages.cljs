@@ -3,9 +3,8 @@
     [cljs-slides.core :refer [defslide]]))
 
 (defslide welcome
-  [:rows
-   [:cols
-    [:h1 "Welcome"]]])
+  [:center
+   [:h1 "Welcome"]])
 
 (defslide introduction
   [:rows
