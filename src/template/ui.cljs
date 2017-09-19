@@ -17,17 +17,13 @@
                           :display "flex"
                           :flex-direction "column"
                           :align-items "center"}}
-            [:h1
-             slide-title
-             ;; (str (slide :breakpoints))
-             ;; (str [(last page)])
-             ]
             [:div {:style {:position "relative"
                            :display "flex"
-                           :flex-grow "1"
+                           :flex "1"
                            :flex-direction "column"
                            :align-items "stretch"
-                           :width "100%"}}
+                           :justify-content "center"
+                           :min-width "80%"}}
              ((get slide :slide) (get breakpoints pause))]])))
   ([state]
    (render-page state (get @state :slide-shown))))
@@ -96,18 +92,18 @@
                     [:div {:style {:padding "5px"
                                    :font-size "24px"}}
                      group-title
-                     (map-indexed (fn [i2 [slide-title slide]] [:div {:on-mouse-enter #(swap! state assoc :highlight [i1 i2])
+                     (map-indexed (fn [i2 [slide-title slide]] [:div {:on-mouse-enter #(swap! state assoc :highlight [i1 i2 (last (slide :breakpoints))])
                                                                       :on-mouse-leave #(swap! state dissoc :highlight)
                                                                       :on-click #(do (swap! state (fn [x] (-> x
                                                                                                               (dissoc :highlight)
                                                                                                               (assoc :menu-visible false))))
-                                                                                     (util/go-to state [i1 i2]))
+                                                                                     (util/go-to state [i1 i2 (last (slide :breakpoints))]))
                                                                       :style {:text-align "center"
                                                                               :margin-left "40px"
                                                                               :padding "5px"
                                                                               :margin-top "5px"
                                                                               :font-size "16px"
-                                                                              :opacity (if (= [i1 i2] (@state :highlight)) 1 0.5)
+                                                                              :opacity (if (= [i1 i2] (vec (butlast (@state :highlight)))) 1 0.5)
                                                                               :cursor "pointer"
                                                                               :background-color "grey"}}
                                                                 slide-title])
@@ -124,7 +120,7 @@
 (defn page [state]
   (html
     [:div
-     ;; (summary state)
+     (summary state)
      [:div {:style {:width "100vw"
                     :height "100vh"
                     :position "relative"
@@ -147,9 +143,7 @@
                             :transitionEnter true
                             :transitionLeaveTimeout 500
                             :transitionEnterTimeout 500}
-                       (render-page state))]
-      ]]
-    ))
+                       (render-page state))]]]))
 
 (defn app [state]
   "Show or transition between application pages"

@@ -47,6 +47,8 @@ body{
     margin: 0px;
     font-family: "Frutiger";
     font-weight: bold;
+    font-size: 1.5em;
+    line-height: 2em;
 }
 
 .fade-leave {
@@ -156,4 +158,19 @@ body{
     /*transform: translateX(-200%) translateY(200%) rotateY(-90deg) rotateX(-90deg);*/
     transform: translateX(-200%);
     transition: all 500ms ease-in;
+}
+a {
+  color: #039088;
+}
+
+/* Custom CSS */
+.flex-cc{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text-center{
+  text-align: center;
 }

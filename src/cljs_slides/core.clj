@@ -6,7 +6,11 @@
   (if (map? params)
     (let [from-pause (get params :from 0)
           to-pause (get params :to 10000)]
-      {:style {:transition "opacity .3s ease-in-out"
+      {:class `(if (or (< ~'pause ~from-pause)
+                       (> ~'pause ~to-pause))
+                 "visible"
+                 "hidden")
+       :style {:transition "opacity .3s ease-in-out"
                :opacity `(if (or (< ~'pause ~from-pause)
                                  (> ~'pause ~to-pause))
                            0
@@ -45,6 +49,7 @@
    [:div {:style {:flex-grow 1
                   :display "flex"
                   :flex-direction "column"
+                  :color "white"
                   :padding "20px"
                   :box-shadow "0 4px 2px -3px"
                   :background-color "#02a89e"}}
@@ -78,6 +83,11 @@
                             :margin "0px 20px"}}
               x])
      objs)])
+(defn link [& url]
+  [:a (merge-with merge
+                  {:href url}
+                  #_(opacity-fn params))
+   url])
 (defn format-component [component-type params & component-children]
   (vec (concat [component-type (opacity-fn params)]
                component-children)))
@@ -163,11 +173,13 @@
                                     cols? (and (component? %) (re-matches #"cols(\..*)?" (name (first %))))
                                     block? (and (component? %) (re-matches #"block<(.*)>(\..*)?" (name (first %))))
                                     question? (and (component? %) (re-matches #"question<(.*)>(\..*)?" (name (first %))))
+                                    link? (and (component? %) (re-matches #"link" (name (first %))))
                                     center? (and (component? %) (re-matches #"center(\..*)?" (name (first %))))]
                                 (cond
                                   rows? (apply rows (last rows?) (rest %))
                                   cols? (apply cols (last cols?) (rest %))
                                   ;; center? (apply center (last center?) (rest %))
+                                  link? (apply link %)
                                   block? (apply block (clojure.string/replace (second block?) "_" " ")
                                                 (rest %))
                                   question? (apply question-block (clojure.string/replace (second question?) "_" " ")
