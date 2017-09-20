@@ -88,6 +88,13 @@
                   {:href url}
                   #_(opacity-fn params))
    url])
+(defn img [[width height] params url]
+  [:img (merge-with merge
+                    (opacity-fn params)
+                    {:src url}
+                    (cond-> {}
+                      width (assoc :width width)
+                      height (assoc :height height)))])
 (defn format-component [component-type params & component-children]
   (vec (concat [component-type (opacity-fn params)]
                component-children)))
@@ -171,14 +178,17 @@
                    (postwalk #(if (component? %) (filterv some? %) %))
                    (postwalk #(let [rows? (and (component? %) (re-matches #"rows(\..*)?" (name (first %))))
                                     cols? (and (component? %) (re-matches #"cols(\..*)?" (name (first %))))
+                                    img? (and (component? %) (re-matches #"img(?:<(\d*)x(\d*)>)?(\..*)?" (name (first %))))
                                     block? (and (component? %) (re-matches #"block<(.*)>(\..*)?" (name (first %))))
                                     question? (and (component? %) (re-matches #"question<(.*)>(\..*)?" (name (first %))))
                                     link? (and (component? %) (re-matches #"link" (name (first %))))
-                                    center? (and (component? %) (re-matches #"center(\..*)?" (name (first %))))]
+                                    ;; center? (and (component? %) (re-matches #"center(\..*)?" (name (first %))))
+                                    ]
                                 (cond
                                   rows? (apply rows (last rows?) (rest %))
                                   cols? (apply cols (last cols?) (rest %))
                                   ;; center? (apply center (last center?) (rest %))
+                                  img? (apply img [(nth img? 1) (nth img? 2)] (rest %))
                                   link? (apply link %)
                                   block? (apply block (clojure.string/replace (second block?) "_" " ")
                                                 (rest %))

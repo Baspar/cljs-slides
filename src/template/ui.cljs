@@ -89,8 +89,7 @@
                   :align-items "center"}}
     [:div {:style {:transform "translateX(10vw)"}}
      (map-indexed (fn [i1 [group-title group]]
-                    [:div {:style {:padding "5px"
-                                   :font-size "24px"}}
+                    [:div {:style {:font-size "24px"}}
                      group-title
                      (map-indexed (fn [i2 [slide-title slide]] [:div {:on-mouse-enter #(swap! state assoc :highlight [i1 i2 (last (slide :breakpoints))])
                                                                       :on-mouse-leave #(swap! state dissoc :highlight)
@@ -99,8 +98,7 @@
                                                                                                               (assoc :menu-visible false))))
                                                                                      (util/go-to state [i1 i2 (last (slide :breakpoints))]))
                                                                       :style {:text-align "center"
-                                                                              :margin-left "40px"
-                                                                              :padding "5px"
+                                                                              :padding "0px"
                                                                               :margin-top "5px"
                                                                               :font-size "16px"
                                                                               :opacity (if (= [i1 i2] (vec (butlast (@state :highlight)))) 1 0.5)
@@ -109,7 +107,7 @@
                                                                 slide-title])
                                   group)])
                   groups)]
-    [:div {:style {:height "100vh"
+    #_[:div {:style {:height "100vh"
                    :width "100vw"
                    :transform "scale(.4)"
                    :background-color "white"

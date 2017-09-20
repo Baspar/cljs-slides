@@ -9,54 +9,65 @@
 (defslide summary
   [:block<What_we_are_going_to_discuss>
    [:ul
-    <-> [:li "What is TLS/SSL & HTTPS?"]
-    <-> [:li "How does it work?"]
+    <->
+    [:li "What is TLS/SSL & HTTPS?"]
+    <->
+    [:li "How does it work?"]
     [:ul
      [:li "TLS Handshake"]
      [:li "Certificate Chain"]]
-    <-> [:li "How to get it?"]
-    <-> [:li "Demos"]]])
+    <->
+    [:li "How to get it?"]
+    <->
+    [:li "Demos"]]])
+
+
+(defslide what-is-it
+  [:div "What is TLS?"])
+
+(defslide how-does
+  [:div "How does it work?"])
 
 (defslide tls-handshake
   [:block<TLS_Handshake>
    [:div "Goal"]
-   <-> [:ul
-        [:li.test "Establish secure tunnel of information"]]])
+   <->
+   [:ul
+    [:li.test "Establish secure tunnel of information"]]])
 
-(defslide question
-  [:div.flex-cc
-   [:h1 "To SSL or not to?"]])
+(defslide certificate-chain
+  [:div "Certificate Chain"])
 
+;; How to get it
 (defslide how-to-get
   [[:h3 "How to get a TLS certificate?"]
    [:cols
     <1-> [:block<Self-Signed>
-          <4-> [:div "Advantages"]
+          <3->
+          [:div "Advantages"]
           [:ul
            [:li "Free"]
            [:li "Encryption"]]
-          <5-> [:div "Drawbacks"]
+          <4->
+          [:div "Drawbacks"]
           [:ul [:li "Not issued by CA"]]]
     <2-> [:block<Certification_Authority>
-          <6-> [:div "Advantages"]
+          <5->
+          [:div "Advantages"]
           [:ul
            [:li "Encryption"]
            [:li "Issued by CA"]]
-          <7-> [:div "Drawbacks"]
-          [:ul [:li "Paid"]]]
-    <3-> [:block<Let's_Encrypt>
-          <8-> [:div "Advantages"]
-          [:ul
-           [:li "Free"]
-           [:li "Issued by CA"]]
-          <9-> [:div "Drawbacks"]
-          [:ul
-           [:li "No wilcard"]
-           [:li "Short lifespan"]]]]])
+          <6->
+          [:div "Drawbacks"]
+          [:ul [:li "(Usually) Paid"]]]]])
 
 (defslide lets-encrypt
-  [:div "Let's Encrypt"])
+  [:div
+   [:h3 "Let's Encrypt"]
+   <->
+   [:img<300x> "/imgs/lets-encrypt.png"]])
 
+;; Demo
 (defslide demos
   [:block<List_of_demos>
    [:div "3 demos:"]
@@ -64,6 +75,11 @@
     <-> [:li "Self-Signed ExpressJS"]
     <-> [:li "TLS ExpressJS"]
     <-> [:li "TLS Apache2/httpd"]]])
+
+;; Conclusion
+(defslide question
+  [:div.flex-cc
+   [:h1 "To SSL or not to?"]])
 
 (defslide thanks
   [:div.flex-cc
@@ -75,8 +91,13 @@
     [:span "Notes available at "]
     [:link "https://baspar.github.io/NOTES.md"]]])
 
+;; Groups
 (def groups [["Introduction" [["Welcome" welcome]
                               ["Summary" summary]]]
+             ["What is it?" [["What is TLS?" what-is-it]]]
+             ["How does it work?" [["How does it work?" how-does]
+                                   ["TLS Handshake" tls-handshake]
+                                   ["Certificate Chain" certificate-chain]]]
              ["Get it" [["How to get a TLS" how-to-get]
                         ["Let's Encrypt" lets-encrypt]]]
              ["Demos" [["Demos" demos]]]
