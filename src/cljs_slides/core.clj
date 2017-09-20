@@ -83,10 +83,10 @@
                             :margin "0px 20px"}}
               x])
      objs)])
-(defn link [& url]
+(defn link [params url]
   [:a (merge-with merge
                   {:href url}
-                  #_(opacity-fn params))
+                  (opacity-fn params))
    url])
 (defn img [[width height] params url]
   [:img (merge-with merge
@@ -181,7 +181,7 @@
                                     img? (and (component? %) (re-matches #"img(?:<(\d*)x(\d*)>)?(\..*)?" (name (first %))))
                                     block? (and (component? %) (re-matches #"block<(.*)>(\..*)?" (name (first %))))
                                     question? (and (component? %) (re-matches #"question<(.*)>(\..*)?" (name (first %))))
-                                    link? (and (component? %) (re-matches #"link" (name (first %))))
+                                    link? (and (component? %) (re-matches #"(link|a)" (name (first %))))
                                     ;; center? (and (component? %) (re-matches #"center(\..*)?" (name (first %))))
                                     ]
                                 (cond
@@ -189,7 +189,7 @@
                                   cols? (apply cols (last cols?) (rest %))
                                   ;; center? (apply center (last center?) (rest %))
                                   img? (apply img [(nth img? 1) (nth img? 2)] (rest %))
-                                  link? (apply link %)
+                                  link? (apply link (rest %))
                                   block? (apply block (clojure.string/replace (second block?) "_" " ")
                                                 (rest %))
                                   question? (apply question-block (clojure.string/replace (second question?) "_" " ")
