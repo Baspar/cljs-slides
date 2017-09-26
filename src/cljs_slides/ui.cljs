@@ -1,7 +1,6 @@
-(ns template.ui
+(ns cljs-slides.ui
   (:require
-    [template.pages :refer [groups]]
-    [template.util :as util])
+    [cljs-slides.util :as util])
   (:require-macros
    [sablono.core :as sab :refer [html]]))
 
@@ -67,54 +66,58 @@
                                           :position "absolute"}}
                             (first (util/get-group state))]))])
 (defn summary [state]
-  [:div {:style {:z-index 2
-                 :position "absolute"
-                 :display "flex"
-                 :max-width "100vw"
-                 :max-height "100vh"
-                 :pointer-events (if (get @state :menu-visible false) "auto" "none")
-                 :overflow "hidden"}}
-   [:div {:on-click #(swap! state (fn [x] (-> x
-                                              (dissoc :highlight)
-                                              (assoc :menu-visible false))))
-          :style {:height "100vh"
-                  :width "100vw"
-                  :background-color "rgba(100, 100, 100, 0.5)"
-                  :display "flex"
-                  :opacity (if (get @state :menu-visible false) 1 0)
-                  :transform (str "scale(" (if (get @state :menu-visible false) "1)" "8)"))
-                  :transition "transform .3s ease-in-out,
-                               opacity .3s"
-                  :justify-content "center"
-                  :align-items "center"}}
-    [:div {:style {:transform "translateX(10vw)"}}
-     (map-indexed (fn [i1 [group-title group]]
-                    [:div {:style {:font-size "24px"}}
-                     group-title
-                     (map-indexed (fn [i2 [slide-title slide]] [:div {:on-mouse-enter #(swap! state assoc :highlight [i1 i2 (last (slide :breakpoints))])
-                                                                      :on-mouse-leave #(swap! state dissoc :highlight)
-                                                                      :on-click #(do (swap! state (fn [x] (-> x
-                                                                                                              (dissoc :highlight)
-                                                                                                              (assoc :menu-visible false))))
-                                                                                     (util/go-to state [i1 i2 (last (slide :breakpoints))]))
-                                                                      :style {:text-align "center"
-                                                                              :padding "0px"
-                                                                              :margin-top "5px"
-                                                                              :font-size "16px"
-                                                                              :opacity (if (= [i1 i2] (vec (butlast (@state :highlight)))) 1 0.5)
-                                                                              :cursor "pointer"
-                                                                              :background-color "grey"}}
-                                                                slide-title])
-                                  group)])
-                  groups)]
-    #_[:div {:style {:height "100vh"
-                   :width "100vw"
-                   :transform "scale(.4)"
-                   :background-color "white"
-                   :border "solid white 15px"
-                   :opacity (if (@state :highlight) 1 0)}}
-     (when-let [page (@state :highlight)]
-       (render-page state page))]]])
+  (let [groups (get @state :groups)]
+    [:div {:style {:z-index 2
+                   :position "absolute"
+                   :display "flex"
+                   :max-width "100vw"
+                   :max-height "100vh"
+                   :pointer-events (if (get @state :menu-visible false) "auto" "none")
+                   :overflow "hidden"}}
+     [:div {:on-click #(swap! state (fn [x] (-> x
+                                                (dissoc :highlight)
+                                                (assoc :menu-visible false))))
+            :style {:height "100vh"
+                    :width "100vw"
+                    :background-color "rgba(100, 100, 100, 0.5)"
+                    :display "flex"
+                    :opacity (if (get @state :menu-visible false) 1 0)
+                    :transform (str "scale(" (if (get @state :menu-visible false) "1)" "8)"))
+                    :transition "transform .3s ease-in-out,
+                                 opacity .3s"
+                    :justify-content "center"
+                    :align-items "center"}}
+      [:div {:style {:transform "translateX(10vw)"
+                     :max-height "100vh"
+                     :overflow "auto"
+                     :margin "2em 0"}}
+       (map-indexed (fn [i1 [group-title group]]
+                      [:div {:style {:font-size "24px"}}
+                       group-title
+                       (map-indexed (fn [i2 [slide-title slide]] [:div {:on-mouse-enter #(swap! state assoc :highlight [i1 i2 (last (slide :breakpoints))])
+                                                                        :on-mouse-leave #(swap! state dissoc :highlight)
+                                                                        :on-click #(do (swap! state (fn [x] (-> x
+                                                                                                                (dissoc :highlight)
+                                                                                                                (assoc :menu-visible false))))
+                                                                                       (util/go-to state [i1 i2 (last (slide :breakpoints))]))
+                                                                        :style {:text-align "center"
+                                                                                :padding "0px"
+                                                                                :margin-top "5px"
+                                                                                :font-size "16px"
+                                                                                :opacity (if (= [i1 i2] (vec (butlast (@state :highlight)))) 1 0.5)
+                                                                                :cursor "pointer"
+                                                                                :background-color "grey"}}
+                                                                  slide-title])
+                                    group)])
+                    groups)]
+      [:div {:style {:height "70vh"
+                     :width "70vw"
+                     :transform "scale(.4)"
+                     :background-color "white"
+                     :border "solid white 15px"
+                     :opacity (if (@state :highlight) 1 0)}}
+       (when-let [page (@state :highlight)]
+         (render-page state page))]]]))
 (defn page [state]
   (html
     [:div

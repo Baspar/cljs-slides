@@ -1,6 +1,4 @@
-(ns template.util
-  (:require
-    [template.pages :refer [groups]]))
+(ns cljs-slides.util)
 
 ;; Get info about group/slide
 (defn get-group
@@ -8,31 +6,35 @@
    (let [slide (get @state :slide-shown)]
      (get-group state slide)))
   ([state slide]
-   (get groups (first slide))))
+   (let [groups (get @state :groups)]
+     (get groups (first slide)))))
 (defn get-slide
   ([state]
    (get-slide state (get @state :slide-shown)))
   ([state slide]
-   (get-in groups [(first slide) 1 (second slide)])))
+   (let [groups (get @state :groups)]
+     (get-in groups [(first slide) 1 (second slide)]))))
 
 ;; Get id about next/previous slide
 (defn whos-previous
   ([state]
    (whos-previous state (get @state :slide-shown)))
   ([state slide]
-   (let [[this-group this-slide this-pause] slide
-         prev-group (- this-group 1)
-         prev-slide (- this-slide 1)
-         nb-prev-group (count (get-in groups [prev-group 1]))]
-     (cond
-       (< 0 this-pause) [this-group this-slide (dec this-pause)]
-       (get-slide state [this-group prev-slide]) [this-group prev-slide (get-in (get-slide state [this-group prev-slide]) [1 :nb-pauses])]
-       (get-slide state [prev-group (- nb-prev-group 1)]) [prev-group (- nb-prev-group 1) (get-in (get-slide state [prev-group (- nb-prev-group 1)]) [1 :nb-pauses])]))))
+   (let [groups (get @state :groups)]
+     (let [[this-group this-slide this-pause] slide
+           prev-group (- this-group 1)
+           prev-slide (- this-slide 1)
+           nb-prev-group (count (get-in groups [prev-group 1]))]
+       (cond
+         (< 0 this-pause) [this-group this-slide (dec this-pause)]
+         (get-slide state [this-group prev-slide]) [this-group prev-slide (get-in (get-slide state [this-group prev-slide]) [1 :nb-pauses])]
+         (get-slide state [prev-group (- nb-prev-group 1)]) [prev-group (- nb-prev-group 1) (get-in (get-slide state [prev-group (- nb-prev-group 1)]) [1 :nb-pauses])])))))
 (defn whos-next
   ([state]
    (whos-next state (get @state :slide-shown)))
   ([state slide]
-   (let [[this-group this-slide this-pause] slide
+   (let [groups (get @state :groups)
+         [this-group this-slide this-pause] slide
          this-nb-pause (get-in (get-slide state [this-group this-slide]) [1 :nb-pauses])
          next-group (+ this-group 1)
          next-slide (+ this-slide 1)]
@@ -50,8 +52,10 @@
                                      "previous"
                                      "next"))))))
 (defn go-to-previous [state]
-  (when-let [slide (whos-previous state)]
-    (go-to state slide)))
+  (let [groups (get @state :groups)]
+    (when-let [slide (whos-previous state)]
+      (go-to state slide))))
 (defn go-to-next [state]
-  (when-let [slide (whos-next state)]
-    (go-to state slide)))
+  (let [groups (get @state :groups)]
+    (when-let [slide (whos-next state)]
+      (go-to state slide))))
