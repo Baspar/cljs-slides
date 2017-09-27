@@ -1,4 +1,4 @@
-(defproject cljs-slides "1.0.0"
+(defproject cljs-slides "0.1.0"
   :description "Plugin to facilitate slides creation in ClojureScript"
   :url "https://github.com/Baspar/cljs-slides"
   :license {:name "Eclipse Public License"

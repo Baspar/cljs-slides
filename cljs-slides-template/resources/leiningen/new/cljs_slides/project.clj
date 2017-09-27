@@ -1,4 +1,4 @@
-(defproject template "0.1.0-SNAPSHOT"
+(defproject {{name}} "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -21,16 +21,16 @@
   :cljsbuild {:builds [{:id "dev"
                         :source-paths ["src"]
                         :figwheel true
-                        :compiler {:main       "template.core"
+                        :compiler {:main       "{{name}}.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/template.js"
+                                   :output-to  "resources/public/js/compiled/{{name}}.js"
                                    :output-dir "resources/public/js/compiled/out"
                                    :source-map-timestamp true}}
                        {:id "prod"
                         :source-paths ["src"]
-                        :compiler {:main       "template.core"
+                        :compiler {:main       "{{name}}.core"
                                    :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/template.js"
+                                   :output-to  "resources/public/js/compiled/{{name}}.js"
                                    :optimizations :advanced}}]}
 
   :figwheel {:css-dirs ["resources/public/css"]})
