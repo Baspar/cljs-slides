@@ -127,17 +127,26 @@
 
 ;; Slides modifiers
 (defn assign-value-pause
-  ([node]
-   (last (assign-value-pause 1 node)))
-  ([pause node]
-   (cond
-     (vector? node) (reduce (fn [[old-pause buf] element]
-                              (let [[new-pause new-element] (assign-value-pause old-pause element)]
-                                [new-pause (vec (concat buf [new-element]))]))
-                            [pause []]
-                            node)
-     (= '<-> node) [(inc pause) (symbol (str "<" pause "->"))]
-     :else [pause node])))
+  "Change every <-> to the correct initial timing
+   e.g: `[:div <-> <-> <->]` become `[:div <1-> <2-> <3->]`"
+  ([nb-pause node]
+   (let [[last-pause modified-tree] (assign-value-pause nb-pause 1 node)]
+     modified-tree))
+  ([nb-pause pause node]
+   (let [recur? (or (vector? node) (list? node))
+         wildcard? (= '<-> node)
+         no-to? (and (symbol? node) (re-matches #"<(\d+)->" (str node)))
+         no-from? (and (symbol? node) (re-matches #"<-(\d+)>" (str node)))]
+     (cond
+        recur? (reduce (fn [[old-pause buf] element]
+                                   (let [[new-pause new-element] (assign-value-pause nb-pause old-pause element)]
+                                     [new-pause (vec (concat buf [new-element]))]))
+                                 [pause []]
+                                 node)
+       wildcard? [(inc pause) (symbol (str "<" pause "->"))]
+       no-from? [pause (symbol (str "<" 0 "-" (second no-from?)">"))]
+       no-to? [pause (symbol (str "<" (second no-to?) "-" nb-pause ">"))]
+       :else [pause node]))))
 (defn assign-visibility
   ([node]
    (last (assign-visibility 0 node)))
@@ -173,7 +182,7 @@
                          (vec))
         slide-fn (symbol (str slide-name "-fn"))
         slide (->> slide-raw
-                   (assign-value-pause)
+                   (assign-value-pause nb-pause)
                    (assign-visibility)
                    (postwalk #(if (component? %) (filterv some? %) %))
                    (postwalk #(let [rows? (and (component? %) (re-matches #"rows(\..*)?" (name (first %))))
